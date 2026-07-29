@@ -1,0 +1,243 @@
+@media (max-width:1360px) {
+    .header-container {
+        padding: 20px 5%;
+    }
+
+    .container {
+        padding: 0px 5%;
+    }
+
+
+}
+
+@media (max-width:1250px) {
+
+    .banner-img-container {
+        width: 60%;
+    }
+
+    .banner-form-container {
+        width: 38%;
+    }
+
+    .tab-contient-img {
+        width: 38%;
+    }
+
+    .tab-container-text {
+        width: 60%;
+    }
+
+    .bannercontainer{
+        padding-bottom: 0px;
+    }
+}
+
+@media (max-width:1001px) {
+
+    #btn2{
+        display: none !important;
+    }
+
+    html {
+        font-size: 60%;
+    }
+
+    .banner-img-container {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .banner-form-container {
+        width: 100%;
+    }
+
+    .tab-container-inner ul li {
+        width: 48%;
+    }
+
+    .popup iframe {
+        width: 80%;
+        height: 300px;
+      }
+
+    .faq-container{
+        width: 100%;
+        margin: 10px auto;
+    }
+
+
+    .thankyouHeading h1{
+        font-size: 5rem;
+    }
+
+    .sub-thankyouHeading{
+        padding:50px;
+    }
+.flex-div{
+padding:0px
+}
+
+ .flex-div, .flex-div-pointer{
+        width: 100%;
+        margin: 10px auto;
+    }
+
+    .flex-div h5{
+        font-size: 4rem;
+    }
+
+    .icon-pointer-box{
+        width: 32%;
+    }
+}
+
+@media (max-width:768px) {
+    html {
+        font-size: 58%;
+    }
+
+    section{
+        margin: 20px 0;
+    }
+
+    h5.heading{
+        margin: 20px 0;
+    }
+
+    .dr-team{
+        margin: 30px 0;  
+    }
+
+    .headingtext h1 {
+        font-size: 2.5rem;
+    }
+
+    .teamCard {
+        width: 48%;
+    }
+
+    .drtxt p {
+        font-size: 1.3rem;
+    }
+
+    .tab-content {
+        padding-bottom: 100px;
+    }
+
+    .tab-contient-img {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .tab-container-text {
+        width: 100%;
+        padding: 0 0px;
+    }
+
+    .video-container {
+        width: 48%;
+    }
+
+    img.play-button {
+        width: 30px;
+        height: 30px;
+    }
+
+    .flex-container {
+        flex-wrap: wrap;
+    }
+
+    .whychosse .flex-pointer-container {
+        width: 100%;
+        margin: 2rem auto;
+    }
+
+    .whychosse .img-box {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 1rem;
+    }
+
+    .footerdiv {
+        width: 48%;
+        margin-bottom: 2rem;
+    }
+
+.icon-pointer-box{
+        width: 48%;
+    }
+
+    .icon-pointer-box img{
+        max-width: 100px;
+        height: 100px;
+    }
+
+    .icon-pointer-box p{
+        font-size: 1.5rem;
+    }
+
+}
+
+@media (max-width:576px) {
+    html {
+        font-size: 55%;
+    }
+
+    .headingtext h1 {
+        font-size: 2rem;
+        padding: 0 20px;
+    }
+
+    h5.heading {
+        font-size: 2.5rem;
+    }
+
+    .drtxt {
+        padding: 20px 5px;
+    }
+
+    .whychosse .flex-pointer-container ul li img {
+        width: 50px;
+    }
+
+    .tab-content {
+        padding-bottom: 80px;
+    }
+
+    .tab-container-inner ul li {
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+
+
+    .footerdiv {
+        width: 100%;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+
+
+}
+
+
+@media (max-width:450px) {
+
+    .logo-container img {
+        width: 150px;
+    }
+
+    .social-container a {
+        width: 35px;
+        height: 35px;
+        font-size: 1.8rem;
+    }
+
+    .sticky-innerfooter a{
+        font-size: 1.5rem;
+    }
+
+}
