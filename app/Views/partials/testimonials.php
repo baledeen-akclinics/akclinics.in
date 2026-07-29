@@ -15,7 +15,7 @@
           <div class="owl-carousel owl-theme reviews-holder">
             <div class="review-2">
               <div class="review-txt text-center">
-                <div class="testimonial-avatar"> <img data-src="/images/testimonials/testimonials.webp" alt="testimonial-avatar"  class="lazyload"> </div>
+                <div class="testimonial-avatar"> <img data-src="<?= base_url('images/testimonials/testimonials.webp') ?>" alt="testimonial-avatar"  class="lazyload"> </div>
                 <p>It was a good experience. The surgery was done with minimum pain, I actually slept while surgery. Thanks to Dr. Kapil, who explained me all the process and gave answers to my queries. Good place to have hair transplant.</p>
                 <div class="review-author">
                   <p class="h5-sm">Hiren Parmar</p>
@@ -24,7 +24,7 @@
             </div>
             <div class="review-2">
               <div class="review-txt text-center">
-                <div class="testimonial-avatar"> <img data-src="/images/testimonials/testimonials.webp" alt="testimonial-avatar" class="lazyload"> </div>
+                <div class="testimonial-avatar"> <img data-src="<?= base_url('images/testimonials/testimonials.webp') ?>" alt="testimonial-avatar" class="lazyload"> </div>
                 <p>Best results. Very friendly management staff and well trained technical staff. Best doctors in Bangalore. Dr. Kapil Dua is best in the business.. </p>
                 <div class="review-author">
                   <p class="h5-sm">Saran Sasidaran</p>
@@ -33,7 +33,7 @@
             </div>
             <div class="review-2">
               <div class="review-txt text-center">
-                <div class="testimonial-avatar"> <img data-src="/images/testimonials/testimonials.webp" alt="testimonial-avatar" class="lazyload"> </div>
+                <div class="testimonial-avatar"> <img data-src="<?= base_url('images/testimonials/testimonials.webp') ?>" alt="testimonial-avatar" class="lazyload"> </div>
                 <p>Hi it is great to know AK Clinics started its services in Bangalore. I met Dr Kapil who operated me in Delhi last year. AK Clinics is the place for getting hair transplant done. </p>
                 <div class="review-author">
                   <p class="h5-sm">Rahul Sharma </p>
@@ -42,7 +42,7 @@
             </div>
             <div class="review-2">
               <div class="review-txt text-center">
-                <div class="testimonial-avatar"> <img data-src="/images/testimonials/testimonials.webp" alt="testimonial-avatar" class="lazyload"> </div>
+                <div class="testimonial-avatar"> <img data-src="<?= base_url('images/testimonials/testimonials.webp') ?>" alt="testimonial-avatar" class="lazyload"> </div>
                 <p>Dr Kapil Dua is an excellent surgeon. He helped me to take a wise decision and undergo hair loss therapy before I planned the transplant ... Thanks again!! </p>
                 <div class="review-author">
                   <p class="h5-sm">Ramann Kumar</p>
@@ -51,7 +51,7 @@
             </div>
             <div class="review-2">
               <div class="review-txt text-center">
-                <div class="testimonial-avatar"> <img data-src="/images/testimonials/testimonials.webp" alt="testimonial-avatar" class="lazyload"> </div>
+                <div class="testimonial-avatar"> <img data-src="<?= base_url('images/testimonials/testimonials.webp') ?>" alt="testimonial-avatar" class="lazyload"> </div>
                 <p>Excellent & no 1 place for getting your Hair Transplant done. I did my hair transplant in AK Clinics in January this year & it was excellent experience.</p>
                 <div class="review-author">
                   <p class="h5-sm">K Kumar </p>
@@ -60,7 +60,7 @@
             </div>
 			  <div class="review-2">
               <div class="review-txt text-center">
-                <div class="testimonial-avatar"> <img data-src="/images/testimonials/testimonials.webp" alt="testimonial-avatar" class="lazyload"> </div>
+                <div class="testimonial-avatar"> <img data-src="<?= base_url('images/testimonials/testimonials.webp') ?>" alt="testimonial-avatar" class="lazyload"> </div>
                 <p>AK clinic is best clinic hair transplantation and PRP treatment... I have done PRP treatment in this clinic I have saw good result.</p>
                 <div class="review-author">
                   <p class="h5-sm">Shantha Kumar </p>

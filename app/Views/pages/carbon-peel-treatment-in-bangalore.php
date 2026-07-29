@@ -1,24 +1,11 @@
-<?php
-$title = "Carbon Peel in Bangalore | Carbon Laser Facial & Its Cost in Bangalore";
-$keywords = "carbon laser peel in bangalore, carbon peel treatment in bangalore, carbon facial cost in bangalore, carbon facial in bangalore, carbon peel treatment near me";
-$description = "Carbon facial in Bangalore for Skin rejuvenation & Instant glow. Visit our Hair & Skin Clinic for premium Carbon Laser Facial treatment in Bangalore at affordable cost. ";
-$canonical_url = "https://www.akclinics.in/carbon-peel-treatment-in-bangalore/";
-?>
+<?= $this->extend('layouts/app') ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->section('title') ?>Carbon Peel in Bangalore | Carbon Laser Facial & Its Cost in Bangalore<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>carbon laser peel in bangalore, carbon peel treatment in bangalore, carbon facial cost in bangalore, carbon facial in bangalore, carbon peel treatment near me<?= $this->endSection() ?>
+<?= $this->section('description') ?>Carbon facial in Bangalore for Skin rejuvenation & Instant glow. Visit our Hair & Skin Clinic for premium Carbon Laser Facial treatment in Bangalore at affordable cost. <?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/carbon-peel-treatment-in-bangalore/<?= $this->endSection() ?>
 
-
+<?= $this->section('content') ?>
 <div id="carbonfacial" class="division">
 <div class="container">
 <div class="row">
@@ -290,7 +277,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-
-
-	
-	<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

@@ -1,23 +1,15 @@
 <?php
 require APPPATH . 'Views/partials/location_city_logic.php';
-$title = "Beard Transplant in Bangalore |Best Clinic for Beard Transplant & its Cost";
-$keywords = "beard transplant in bangalore, beard transplant clinic in bangalore, beard transplant cost in bangalore, beard transplant clinic near me, beard transplant bangalore";
-$description = "Beard Transplant in Bangalore at most reputed clinic from experienced surgeon. Click here to know more about Beard or Facial Hair Transplant & its cost in Bangalore.";
-$canonical_url = "https://www.akclinics.in/beard-transplant-in-bangalore/";
 ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->extend('layouts/app') ?>
+
+<?= $this->section('title') ?>Beard Transplant in Bangalore |Best Clinic for Beard Transplant & its Cost<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>beard transplant in bangalore, beard transplant clinic in bangalore, beard transplant cost in bangalore, beard transplant clinic near me, beard transplant bangalore<?= $this->endSection() ?>
+<?= $this->section('description') ?>Beard Transplant in Bangalore at most reputed clinic from experienced surgeon. Click here to know more about Beard or Facial Hair Transplant & its cost in Bangalore.<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/beard-transplant-in-bangalore/<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <div id="beardbanner" class="division">
 <div class="container">
 <div class="row">
@@ -292,7 +284,9 @@ echo view('partials/book_appointment');
     z-index: 1050;
     display: block;"><a data-action="open" data-phone="919779162190" data-message="Hi." href="https://wa.me/919779162190" target="_blank" style="color:#fff; text-decoration:none;"><i class="fa fa-whatsapp" style="font-size:40px;padding: 9px 11px;"></i></a></div>
 </div>
-</div>
+<?= $this->endSection() ?>
+
+<?= $this->section('after_page') ?>
 <div class="row book-hide" style="min-height:40px; background-color:#fff; position: fixed ;bottom:0;
     z-index: 1050; width:105%; padding: 5px 0 5px 0;box-shadow: 0 4px 12px #e5e5e5;">
 <div class="col-md-10 offset-1">
@@ -312,7 +306,4 @@ echo view('partials/book_appointment');
 </ul>
 </div>
 </div>
-
-
-	
-	<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

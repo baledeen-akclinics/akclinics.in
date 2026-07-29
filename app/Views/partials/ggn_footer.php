@@ -46,7 +46,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-lg-3">
-        <div class="footer-info mb-20"> <img class="lazyload" data-src="/images/logo-ak.webp" src="/images/logo-ak.webp"
+        <div class="footer-info mb-20"> <img class="lazyload" data-src="<?= base_url('images/logo-ak.webp') ?>" src="<?= base_url('images/logo-ak.webp') ?>"
             alt="hair Restoration Clinic in Bangalore">
           <p class="p-sm mt-20 mb-10 m-hide">The best care with results that the world can see – our promise to you at
             AK Clinics</p>
@@ -169,7 +169,7 @@
           <div class="row newsletter">
             <div class="col-lg-12">
               <div class="content">
-                <!--link href="/css/slim-10_7.css" rel="stylesheet" type="text/css"-->
+                <!--link href="<?= base_url('css/slim-10_7.css') ?>" rel="stylesheet" type="text/css"-->
                 <div class="bottom-footer m-hide">
                   <div class="row">
                     <div class="col-md-12">
@@ -210,5 +210,5 @@
     </ul>
   </div>
 </div>
-<script src="/js/lazysizes.min.js" type="text/javascript" defer></script>
-<script src="/js/compressed.js" type="text/javascript" defer></script>
+<script src="<?= base_url('js/lazysizes.min.js') ?>" type="text/javascript" defer></script>
+<script src="<?= base_url('js/compressed.js') ?>" type="text/javascript" defer></script>

@@ -1,23 +1,11 @@
-<?php
-$title = "Mole Removal in Bangalore | Best Clinic for Mole Removal & Its Cost";
-$keywords = "mole removal in bangalore, mole removal near me, mole removal clinic in bangalore, mole removal clinic in bangalore, laser mole removal cost in bangalore, mole removal bangalore, mole removal centre in bangalore";
-$description = "Remove your mole or wart  with Laser now. Consult now for Laser Mole removal in Bangalore at affordable cost from expert skin specialist.";
-$canonical_url = "https://www.akclinics.in/mole-removal-in-bangalore/";
-?>
+<?= $this->extend('layouts/app') ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->section('title') ?>Mole Removal in Bangalore | Best Clinic for Mole Removal & Its Cost<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>mole removal in bangalore, mole removal near me, mole removal clinic in bangalore, mole removal clinic in bangalore, laser mole removal cost in bangalore, mole removal bangalore, mole removal centre in bangalore<?= $this->endSection() ?>
+<?= $this->section('description') ?>Remove your mole or wart  with Laser now. Consult now for Laser Mole removal in Bangalore at affordable cost from expert skin specialist.<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/mole-removal-in-bangalore/<?= $this->endSection() ?>
 
+<?= $this->section('content') ?>
 <div id="molebanner" class="division">
 <div class="container">
 <div class="row">
@@ -207,7 +195,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-
-
-
-<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

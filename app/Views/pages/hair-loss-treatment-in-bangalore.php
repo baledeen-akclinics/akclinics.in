@@ -1,23 +1,15 @@
 <?php
 require APPPATH . 'Views/partials/location_city_logic.php';
-$title = "Hair Loss Treatment in Bangalore | Best Clinic for Hair Fall Treatment in Indiranagar, Bangalore";
-$keywords = "hair loss treatment in bangalore, hair loss treatment cost in bangalore, hair loss treatment for men & women in bangalore, hair fall control treatment in bangalore, hair fall treatment doctors in bangalore, hair loss in bangalore, best doctor for hair loss treatment in bangalore, hair growth treatment in bangalore";
-$description = "Suffering from Hair Loss? Visit best Hair Loss Treatment Clinic in Bangalore and consult with  Dr. Vivek M Pai, best doctors for Hair Fall treatment in Bangalore, Indiranagar. Book Your Appointment Now!";
-$canonical_url = "https://www.akclinics.in/hair-loss-treatment-in-bangalore/";
 ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->extend('layouts/app') ?>
+
+<?= $this->section('title') ?>Hair Loss Treatment in Bangalore | Best Clinic for Hair Fall Treatment in Indiranagar, Bangalore<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>hair loss treatment in bangalore, hair loss treatment cost in bangalore, hair loss treatment for men & women in bangalore, hair fall control treatment in bangalore, hair fall treatment doctors in bangalore, hair loss in bangalore, best doctor for hair loss treatment in bangalore, hair growth treatment in bangalore<?= $this->endSection() ?>
+<?= $this->section('description') ?>Suffering from Hair Loss? Visit best Hair Loss Treatment Clinic in Bangalore and consult with  Dr. Vivek M Pai, best doctors for Hair Fall treatment in Bangalore, Indiranagar. Book Your Appointment Now!<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/hair-loss-treatment-in-bangalore/<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <div id="hairloss" class="division">
 <div class="container">
 <div class="row">
@@ -286,5 +278,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-
-	<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

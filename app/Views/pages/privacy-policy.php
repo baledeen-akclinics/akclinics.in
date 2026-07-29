@@ -1,24 +1,11 @@
-<?php
-$title = "Privacy Policy - AK Clinics";
-$keywords = "";
-$description = "";
-$canonical_url = "https://www.akclinics.in/privacy-policy/";
-?>
+<?= $this->extend('layouts/app') ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->section('title') ?>Privacy Policy - AK Clinics<?= $this->endSection() ?>
+<?= $this->section('keywords') ?><?= $this->endSection() ?>
+<?= $this->section('description') ?><?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/privacy-policy/<?= $this->endSection() ?>
 
-
+<?= $this->section('content') ?>
 <div class="row head_bg">
 <div class="container">
 <div class="row">
@@ -109,5 +96,5 @@ echo view('partials/book_appointment');
 </aside> 
 </div> 
 </div> 
-</div> 
-	<?= view('partials/footer') ?>
+</div>
+<?= $this->endSection() ?>

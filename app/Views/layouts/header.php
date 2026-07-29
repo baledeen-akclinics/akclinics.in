@@ -1,6 +1,6 @@
 <div class="wsmobileheader clearfix"> <a id="wsnavtoggle" class="wsanimated-arrow"><span></span></a>
 	<span class="smllogo">
-		<img data-src="/images/logo-ak.webp" class="img-mobile lazyloaded "  alt="mobile-logo" src="/images/logo-ak.webp"/>
+		<img data-src="<?= base_url('images/logo-ak.webp') ?>" class="img-mobile lazyloaded "  alt="mobile-logo" src="<?= base_url('images/logo-ak.webp') ?>"/>
 		</span>
 	<a href="tel:9779162190" class="callusbtn"><i class="fas fa fa-phone"></i></a> </div>
 <div class="wsmainfull menu clearfix">
@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="wsmainwp clearfix">
-    <div class="desktoplogo"><a href="/"><img data-src="/images/logo-ak.webp" class="img-responsive lazyloaded "  src="/images/logo-ak.webp" alt="Hair & Skin Clinic in Bangalore" width="139px" height="63px" style="padding: 17px 7px;"></a></div>
+    <div class="desktoplogo"><a href="/"><img data-src="<?= base_url('images/logo-ak.webp') ?>" class="img-responsive lazyloaded "  src="<?= base_url('images/logo-ak.webp') ?>" alt="Hair & Skin Clinic in Bangalore" width="139px" height="63px" style="padding: 17px 7px;"></a></div>
     <nav class="wsmenu clearfix">
       <ul class="wsmenu-list">
         <li><a href="/">Home</a></li>

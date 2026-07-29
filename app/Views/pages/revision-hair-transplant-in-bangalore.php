@@ -1,23 +1,15 @@
 <?php
 require APPPATH . 'Views/partials/location_city_logic.php';
-$title = "Revision Hair Transplant in Bangalore | Hair Transplant Repair Cost";
-$keywords = "";
-$description = "No need to worry about your failed hair transplant, Consult with best hair transplant surgeon now to plan your revision hair transplant surgery in Bangalore to remove scars or regain your natural hairline.";
-$canonical_url = "https://www.akclinics.in/revision-hair-transplant-in-bangalore/";
 ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->extend('layouts/app') ?>
 
+<?= $this->section('title') ?>Revision Hair Transplant in Bangalore | Hair Transplant Repair Cost<?= $this->endSection() ?>
+<?= $this->section('keywords') ?><?= $this->endSection() ?>
+<?= $this->section('description') ?>No need to worry about your failed hair transplant, Consult with best hair transplant surgeon now to plan your revision hair transplant surgery in Bangalore to remove scars or regain your natural hairline.<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/revision-hair-transplant-in-bangalore/<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <div id="revisionbanner" class="division">
 <div class="container">
 <div class="row">
@@ -202,6 +194,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-
-
-	<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

@@ -14,18 +14,14 @@ if($location_inpage == "")
     $canonical_url = "https://www.akclinics.in/laser-hair-removal-in-bangalore/";
 ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->extend('layouts/app') ?>
+
+<?= $this->section('title') ?><?= esc($title) ?><?= $this->endSection() ?>
+<?= $this->section('keywords') ?><?= esc($keywords) ?><?= $this->endSection() ?>
+<?= $this->section('description') ?><?= esc($description) ?><?= $this->endSection() ?>
+<?= $this->section('canonical') ?><?= esc($canonical_url) ?><?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <div id="laserbanner" class="division">
 <div class="container">
 <div class="row">
@@ -347,6 +343,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-
-
-	<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

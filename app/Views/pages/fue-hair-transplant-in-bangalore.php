@@ -1,24 +1,15 @@
 <?php
 require APPPATH . 'Views/partials/location_city_logic.php';
-$title = "FUE Hair Transplant in Bangalore | FUE Hair Transplant Cost";
-$keywords = "fue hair transplant in bangalore, fue hair transplant cost in bangalore, fue hair transplant clinic in bangalore, cost of fue hair transplant in bangalore";
-$description = "FUE Hair Transplant in Bangalore at most reputed clinic from experienced surgeon. Click here to know more about FUE Hair Transplant & its cost in Bangalore.";
-$canonical_url = "https://www.akclinics.in/fue-hair-transplant-in-bangalore/";
 ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->extend('layouts/app') ?>
 
+<?= $this->section('title') ?>FUE Hair Transplant in Bangalore | FUE Hair Transplant Cost<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>fue hair transplant in bangalore, fue hair transplant cost in bangalore, fue hair transplant clinic in bangalore, cost of fue hair transplant in bangalore<?= $this->endSection() ?>
+<?= $this->section('description') ?>FUE Hair Transplant in Bangalore at most reputed clinic from experienced surgeon. Click here to know more about FUE Hair Transplant & its cost in Bangalore.<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/fue-hair-transplant-in-bangalore/<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <div id="fue" class="division">
 <div class="container">
 <div class="row">
@@ -240,6 +231,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-
-	
-	<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

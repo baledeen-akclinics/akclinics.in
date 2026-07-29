@@ -1,24 +1,11 @@
-<?php
-$title = "Book Appointment - AK Clinics Indiranagar Bangalore";
-$keywords = "";
-$description = "";
-$canonical_url = "https://www.akclinics.in/book-appointment/";
-?>
+<?= $this->extend('layouts/app') ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->section('title') ?>Book Appointment - AK Clinics Indiranagar Bangalore<?= $this->endSection() ?>
+<?= $this->section('keywords') ?><?= $this->endSection() ?>
+<?= $this->section('description') ?><?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/book-appointment/<?= $this->endSection() ?>
 
-
+<?= $this->section('content') ?>
 <div id="service-page" class="wide-60 service-page-section division">
 <div class="container">
 <div class="row justify-content-md-center">
@@ -39,6 +26,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-
-
-		<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

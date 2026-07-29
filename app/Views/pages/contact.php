@@ -1,22 +1,13 @@
-<?php
-$title = "Contact Us - AK Clinics Indiranagar Bangalore";
-$keywords = "";
-$description = "";
-$canonical_url = "https://www.akclinics.in/contact/";
-?>
+<?= $this->extend('layouts/app') ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<!--<div id="loading" class="loader"></div>-->
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->section('title') ?>Contact Us - AK Clinics Indiranagar Bangalore<?= $this->endSection() ?>
+<?= $this->section('keywords') ?><?= $this->endSection() ?>
+<?= $this->section('description') ?><?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/contact/<?= $this->endSection() ?>
+
+<?= $this->section('hide_loader') ?>1<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <style>.form-control {
     height: 42px !important;
     margin: 7px 0;
@@ -122,6 +113,5 @@ $canonical_url = "https://www.akclinics.in/contact/";
 </aside> 
 </div> 
 </div> 
-</div> 
-
-		<?= view('partials/footer') ?>
+</div>
+<?= $this->endSection() ?>

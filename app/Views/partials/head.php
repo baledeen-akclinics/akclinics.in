@@ -101,10 +101,10 @@
       padding-bottom: 115px;
     }
   </style>
-   <link rel="preload" href="../fonts/fontawesome-webfont.ttf" as="font" type="font/ttf" crossorigin="anonymous"/>
-<link rel="preload" href="../fonts/fontawesome-webfont.ttf" as="font" type="font/ttf" crossorigin="anonymous"/>
-<link rel="preload" href="../fonts/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
-<link rel="preload" href="../fonts/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin="anonymous"/> 
+   <link rel="preload" href="<?= base_url('fonts/fontawesome-webfont.ttf') ?>" as="font" type="font/ttf" crossorigin="anonymous"/>
+<link rel="preload" href="<?= base_url('fonts/fontawesome-webfont.ttf') ?>" as="font" type="font/ttf" crossorigin="anonymous"/>
+<link rel="preload" href="<?= base_url('fonts/fontawesome-webfont.woff2') ?>" as="font" type="font/woff2" crossorigin="anonymous"/>
+<link rel="preload" href="<?= base_url('fonts/fontawesome-webfont.woff2') ?>" as="font" type="font/woff2" crossorigin="anonymous"/> 
      
     
   <link rel="shortcut icon" href="<?= base_url('favicon.ico') ?>" type="image/x-icon">
@@ -120,11 +120,11 @@
       i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o);
       setTimeout(function () { i.media = n || "all" })
     }
-    loadCSS("/css/animate.css");
-    loadCSS("/css/font-awesome.min.css");
-    loadCSS("/css/owl.carousel.min.css");
-    loadCSS("/css/fade-down.css");
-    //loadCSS("/css/responsive.css");
+    loadCSS("<?= base_url('css/animate.css') ?>");
+    loadCSS("<?= base_url('css/font-awesome.min.css') ?>");
+    loadCSS("<?= base_url('css/owl.carousel.min.css') ?>");
+    loadCSS("<?= base_url('css/fade-down.css') ?>");
+    //loadCSS("<?= base_url('css/responsive.css') ?>");
   </script>
   <link rel="stylesheet" media="all" href="<?= base_url('css/responsive.css') ?>" />
   <script type="text/javascript">
@@ -133,12 +133,12 @@
       let link = document.createElement('link');
       link.rel = 'stylesheet';
       link.type = 'text/css';
-      link.href = "/css/owl.carousel.min.css";
+      link.href = "<?= base_url('css/owl.carousel.min.css') ?>";
       document.head.appendChild(link);
       let link2 = document.createElement('link');
       link2.rel = 'stylesheet';
       link2.type = 'text/css';
-      link2.href = "/css/font-awesome.min.css";
+      link2.href = "<?= base_url('css/font-awesome.min.css') ?>";
       document.head.appendChild(link2);
     })
   </script>

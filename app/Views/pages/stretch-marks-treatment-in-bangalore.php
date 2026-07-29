@@ -1,23 +1,11 @@
-<?php
-$title = "Stretch Mark Removal Treatment | Bangalore | Laser Stretch Mark Removal Cost";
-$keywords = "stretch marks treatment in bangalore, stretch mark removal bangalore, stretch marks treatment cost in bangalore, laser treatment for stretch marks in bangalore, stretch marks treatment clinic near me";
-$description = "Stretch Mark Removal treatment in Bangalore by top clinic at affordable cost. Book Your Appointment for laser Stretch Mark removal in Bangalore now!";
-$canonical_url = "https://www.akclinics.in/stretch-marks-treatment-in-bangalore/";
-?>
+<?= $this->extend('layouts/app') ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->section('title') ?>Stretch Mark Removal Treatment | Bangalore | Laser Stretch Mark Removal Cost<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>stretch marks treatment in bangalore, stretch mark removal bangalore, stretch marks treatment cost in bangalore, laser treatment for stretch marks in bangalore, stretch marks treatment clinic near me<?= $this->endSection() ?>
+<?= $this->section('description') ?>Stretch Mark Removal treatment in Bangalore by top clinic at affordable cost. Book Your Appointment for laser Stretch Mark removal in Bangalore now!<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/stretch-marks-treatment-in-bangalore/<?= $this->endSection() ?>
 
+<?= $this->section('content') ?>
 <div id="stretch-marks-banner" class="division">
 <div class="container">
 <div class="row">
@@ -269,5 +257,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-
-	<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

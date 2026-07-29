@@ -1,25 +1,17 @@
 <?php
 //error_reporting(E_ALL);
 //ini_set('display_errors', 1);
- $title = "Hair Transplant Clinic in Bangalore | Top Hair Transplant Surgeon | AK Clinics";
-$keywords = "hair transplant surgeon in bangalore, best clinic for hair transplant, top hair transplant surgeon in bangalore ";
-$description = "Dr.Kapil Dua is a leading hair transplant surgeon in Bangalore for all of your hair related problems. Book Your Appointment Now!";
-$canonical_url = "https://www.akclinics.in/";
 ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-  <div id="page" class="page">
-    <header id="header" class="header">
-      <?= view('partials/header') ?>
-    </header>
-    <section id="hero-1" class="bg-fixed hero-section ls-is-cached lazyloaded">
+<?= $this->extend('layouts/app') ?>
+
+<?= $this->section('title') ?>Hair Transplant Clinic in Bangalore | Top Hair Transplant Surgeon | AK Clinics<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>hair transplant surgeon in bangalore, best clinic for hair transplant, top hair transplant surgeon in bangalore <?= $this->endSection() ?>
+<?= $this->section('description') ?>Dr.Kapil Dua is a leading hair transplant surgeon in Bangalore for all of your hair related problems. Book Your Appointment Now!<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+<section id="hero-1" class="bg-fixed hero-section ls-is-cached lazyloaded">
     
     
     </section>
@@ -147,7 +139,7 @@ $canonical_url = "https://www.akclinics.in/";
         <div class="row d-flex align-items-center">
           <div class="col-lg-6">
             <div class="about-img text-center wow fadeInUp" data-wow-delay="0.6s"> <img class="img-fluid lazyload"
-                data-src="/images/team-1.webp" alt="Experienced Hair Transplant Surgeon in Bangalore"> </div>
+                data-src="<?= base_url('images/team-1.webp') ?>" alt="Experienced Hair Transplant Surgeon in Bangalore"> </div>
           </div>
           <div class="col-lg-6">
             <div class="txt-block pc-30 wow fadeInUp" data-wow-delay="0.4s">
@@ -284,7 +276,7 @@ $canonical_url = "https://www.akclinics.in/";
             <div id="txt-widget" class="sidebar-div mb-50">
               <h3 class="h5-sm steelblue-color"><a href="#">Top Hair Transplant Surgeon </a></h3>
               <div class="txt-widget-unit mb-15 clearfix d-flex align-items-center">
-                <div class="txt-widget-avatar"> <img class="lazyload" data-src="/images/drkapil.webp"
+                <div class="txt-widget-avatar"> <img class="lazyload" data-src="<?= base_url('images/drkapil.webp') ?>"
                     alt="Hair Transplant Surgeon in Bangalore"> </div>
                 <div class="txt-widget-data">
                   <h5 class="h5-md steelblue-color">Dr. Kapil Dua</h5>
@@ -324,7 +316,7 @@ $canonical_url = "https://www.akclinics.in/";
           </div>
           <div class="col-lg-6">
             <div class="info-2-img wow fadeInUp" data-wow-delay="0.6s">
-              <img class="img-fluid lazyload" data-src="/images/results.webp"
+              <img class="img-fluid lazyload" data-src="<?= base_url('images/results.webp') ?>"
                 alt="Best Hair Transplant Results in Bangalore">
             </div>
           </div>
@@ -362,7 +354,7 @@ $canonical_url = "https://www.akclinics.in/";
           <div class="col-lg-4">
             <div class="blog-post wow fadeInUp h-100" data-wow-delay="0.3s">
               <div class="blog-post-img"> <a href="https://www.youtube.com/watch?v=zebLxI08y9Y&amp;feature=emb_title">
-                  <img data-src="/images/youtube-thumb-1.webp" data-src="/images/youtube-thumb-1.webp" height="196"
+                  <img data-src="<?= base_url('images/youtube-thumb-1.webp') ?>" data-src="<?= base_url('images/youtube-thumb-1.webp') ?>" height="196"
                     alt="Hairline Re-construction Surgery" class="lazyload" /> </a> </div>
               <div class="blog-post-txt">
                 <h5 class="h5-sm steelblue-color"><a
@@ -377,7 +369,7 @@ $canonical_url = "https://www.akclinics.in/";
           <div class="col-lg-4">
             <div class="blog-post wow fadeInUp h-100" data-wow-delay="0.4s">
               <div class="blog-post-img"> <a href="https://www.youtube.com/watch?v=QEPsDDd_cc4&amp;feature=emb_title">
-                  <img data-src="/images/youtube-thumb-2.webp" data-src="/images/youtube-thumb-2.webp" height="196"
+                  <img data-src="<?= base_url('images/youtube-thumb-2.webp') ?>" data-src="<?= base_url('images/youtube-thumb-2.webp') ?>" height="196"
                     alt="Celebrity Hair Transplant" class="lazyload"> </a> </div>
               <div class="blog-post-txt">
                 <h5 class="h5-sm steelblue-color"><a
@@ -392,7 +384,7 @@ $canonical_url = "https://www.akclinics.in/";
           <div class="col-lg-4">
             <div class="blog-post wow fadeInUp h-100" data-wow-delay="0.5s">
               <div class="blog-post-img"> <a href="https://www.youtube.com/watch?v=uVXfe3CNvQQ&amp;feature=emb_title">
-                  <img data-src="/images/youtube-thumb-3.webp" data-src="/images/youtube-thumb-3.webp" height="196"
+                  <img data-src="<?= base_url('images/youtube-thumb-3.webp') ?>" data-src="<?= base_url('images/youtube-thumb-3.webp') ?>" height="196"
                     alt="All About Hair Transplant" class="lazyload"></a> </div>
               <div class="blog-post-txt">
                 <h5 class="h5-sm steelblue-color"><a
@@ -480,8 +472,10 @@ $canonical_url = "https://www.akclinics.in/";
           href="https://wa.me/919779162190" target="_blank" style="color:#fff; text-decoration:none;"><i
             class="fa fa-whatsapp" style="font-size:40px;padding: 9px 11px;"></i></a></div>
     </div>
-  </div>
-  <div class="row book-hide" style="min-height:40px; background-color:#fff; position: fixed ;bottom:0;
+<?= $this->endSection() ?>
+
+<?= $this->section('after_page') ?>
+<div class="row book-hide" style="min-height:40px; background-color:#fff; position: fixed ;bottom:0;
     z-index: 1050; width:105%; padding: 5px 0 5px 0;box-shadow: 0 4px 12px #e5e5e5;">
     <div class="col-md-10 offset-1">
       <ul class="list-inline">
@@ -501,4 +495,4 @@ $canonical_url = "https://www.akclinics.in/";
       </ul>
     </div>
   </div>
-  <?= view('partials/footer') ?>
+<?= $this->endSection() ?>

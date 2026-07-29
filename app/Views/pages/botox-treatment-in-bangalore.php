@@ -1,23 +1,11 @@
-<?php
-$title = "Botox Treatment | Bangalore | Botox Injection for wrinkles";
-$keywords = "botox treatment in bangalore, botox injection cost in bangalore, botox injection in bangalore, botox for wrinkle treatment in bangalore, botox in bangalore, botox cost in bangalore";
-$description = "Botox Treatment  in Bangalore for wrinkles.  Visit our clinic to remove wrinkles from face using Botox Injection in Bangalore at affordable cost.";
-$canonical_url = "https://www.akclinics.in/botox-treatment-in-bangalore/";
-?>
+<?= $this->extend('layouts/app') ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
-	
+<?= $this->section('title') ?>Botox Treatment | Bangalore | Botox Injection for wrinkles<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>botox treatment in bangalore, botox injection cost in bangalore, botox injection in bangalore, botox for wrinkle treatment in bangalore, botox in bangalore, botox cost in bangalore<?= $this->endSection() ?>
+<?= $this->section('description') ?>Botox Treatment  in Bangalore for wrinkles.  Visit our clinic to remove wrinkles from face using Botox Injection in Bangalore at affordable cost.<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/botox-treatment-in-bangalore/<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <div id="botoxbanner" class="division">
 <div class="container">
 <div class="row">
@@ -310,6 +298,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-
-	
-<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

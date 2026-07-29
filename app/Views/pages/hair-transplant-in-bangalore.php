@@ -14,19 +14,14 @@ if($location_inpage == "")
     $canonical_url = "https://www.akclinics.in/hair-transplant-in-bangalore/";
 ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->extend('layouts/app') ?>
 
+<?= $this->section('title') ?>Hair Transplant in Bangalore by Dr Kapil Dua - MBBS, MS, FISHRS, Dipl. ABHRS<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>hair transplant in bangalore, hair transplant in bangalore cost, hair transplant at bangalore, hair transplant clinic bangalore, cost for hair transplant in bangalore, hair regrowth treatment, hair restoration in bangalore<?= $this->endSection() ?>
+<?= $this->section('description') ?>Get your Hair Transplant done from Dr Kapil Dua - India's top Hair Transplant Surgeon for natural results. Book your appointment to know more about hair transplant cost in Bangalore.<?= $this->endSection() ?>
+<?= $this->section('canonical') ?><?= esc($canonical_url) ?><?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <div id="htbanner" class="division">
 <div class="container">
 <div class="row">
@@ -329,6 +324,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-
-
-	<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

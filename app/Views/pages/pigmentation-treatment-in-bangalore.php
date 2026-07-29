@@ -1,23 +1,11 @@
-<?php
-$title = "Pigmentation Treatment in Bangalore | Best Clinic for Pigmentation Treatment & Its Cost";
-$keywords = "pigmentation treatment in bangalore, pigmentation treatment cost in bangalore, pigmentation laser treatment in bangalore, skin pigmentation treatment in bangalore, best clinic for pigmentation treatment in bangalore, pigmentation treatment cost";
-$description = "Visit top Pigmentation Treatment Clinic in Bangalore and consult with experience skin specialist for best Pigmentation treatment in Bangalore at affordable cost. Book Your Appointment Now!";
-$canonical_url = "https://www.akclinics.in/pigmentation-treatment-in-bangalore/";
-?>
+<?= $this->extend('layouts/app') ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->section('title') ?>Pigmentation Treatment in Bangalore | Best Clinic for Pigmentation Treatment & Its Cost<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>pigmentation treatment in bangalore, pigmentation treatment cost in bangalore, pigmentation laser treatment in bangalore, skin pigmentation treatment in bangalore, best clinic for pigmentation treatment in bangalore, pigmentation treatment cost<?= $this->endSection() ?>
+<?= $this->section('description') ?>Visit top Pigmentation Treatment Clinic in Bangalore and consult with experience skin specialist for best Pigmentation treatment in Bangalore at affordable cost. Book Your Appointment Now!<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/pigmentation-treatment-in-bangalore/<?= $this->endSection() ?>
 
+<?= $this->section('content') ?>
 <div id="pigmentationbanner" class="division">
 <div class="container">
 <div class="row">
@@ -259,6 +247,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-
-
-<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

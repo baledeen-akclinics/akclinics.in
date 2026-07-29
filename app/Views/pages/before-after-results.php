@@ -1,17 +1,11 @@
-<?php
-$title = "Hair Transplant Results in Bangalore | AK Clinics";
-$keywords = "hair transplant result, before and after, fue hair transplant result, natural-looking results, hair transplant before and after";
-$description = "Check out the Hair Transplant Results of our patient before planning your hair transplant surgery";
-$canonical_url = "https://www.akclinics.in/before-after-results/";
-?>
+<?= $this->extend('layouts/app') ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
+<?= $this->section('title') ?>Hair Transplant Results in Bangalore | AK Clinics<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>hair transplant result, before and after, fue hair transplant result, natural-looking results, hair transplant before and after<?= $this->endSection() ?>
+<?= $this->section('description') ?>Check out the Hair Transplant Results of our patient before planning your hair transplant surgery<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/before-after-results/<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <style>
 .close {
   font-size: 1.5rem;
@@ -51,13 +45,7 @@ $canonical_url = "https://www.akclinics.in/before-after-results/";
      100% {transform:translate(0, 0)}}.mh5{font-size:1.30rem;line-height:1;margin-bottom:25px;font-weight:700;letter-spacing:-.25px}.m1h5{font-size:1.05rem;line-height:1;font-weight:900;text-transform:uppercase;margin-top:25px;margin-bottom:15px}#reviews-2 .review-author p{font-size:.9rem;line-height:1;font-weight:900;padding-top:10px;text-align:center;margin-bottom:0}.seo-title h1{font-size:18px}.img-responsive{width:100%!important;height:auto!important}#hero-1{background-image:url(images/banner-new.webp);padding-top:298px;padding-bottom:115px}.loader{position:fixed;width:100%;height:100vh;background:#fff url(/images/ak-loading.svg) no-repeat center;z-index:99999}</style>
 
 
-<body><div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
-
-</div>
+<body></div>
 
 
 
@@ -74,41 +62,41 @@ $canonical_url = "https://www.akclinics.in/before-after-results/";
 
 <div class="d-flex flex-wrap align-items-center" data-toggle="modal" data-target="#lightbox">
   <div class="col-12 col-md-6">
-    <img class="lazyload" data-src="/images/ht-result-7.webp" data-target="#indicators" data-slide-to="0" alt="" width="335px" height="167" /> 
+    <img class="lazyload" data-src="<?= base_url('images/ht-result-7.webp') ?>" data-target="#indicators" data-slide-to="0" alt="" width="335px" height="167" /> 
   </div>
   <div class="col-12 col-md-6 ">
-       <img  class="lazyload" data-src="/images/ht-result-75.webp" data-target="#indicators" data-slide-to="1" alt=""  width="335px" height="167"/>
+       <img  class="lazyload" data-src="<?= base_url('images/ht-result-75.webp') ?>" data-target="#indicators" data-slide-to="1" alt=""  width="335px" height="167"/>
   </div>
   <div class="col-12 col-md-6 ">
-     <img class="lazyload" data-src="/images/ht-result-65.webp" data-target="#indicators" data-slide-to="2"  alt=""  width="335px" height="167"/>
+     <img class="lazyload" data-src="<?= base_url('images/ht-result-65.webp') ?>" data-target="#indicators" data-slide-to="2"  alt=""  width="335px" height="167"/>
   </div>
   <div class="col-12 col-md-6 ">
-       <img class="lazyload" data-src="/images/ht-result-66.webp" data-target="#indicators" data-slide-to="4" alt="" width="335px" height="167" />
+       <img class="lazyload" data-src="<?= base_url('images/ht-result-66.webp') ?>" data-target="#indicators" data-slide-to="4" alt="" width="335px" height="167" />
   </div>
   <div class="col-12 col-md-6 ">
-       <img class="lazyload" data-src="/images/ht-result-67.webp" data-target="#indicators" data-slide-to="5"  alt="" width="335px" height="167" />
+       <img class="lazyload" data-src="<?= base_url('images/ht-result-67.webp') ?>" data-target="#indicators" data-slide-to="5"  alt="" width="335px" height="167" />
   </div>
   <div class="col-12 col-md-6 ">
-       <img class="lazyload" data-src="/images/ht-result-69.webp" data-target="#indicators" data-slide-to="6" alt="" width="335px" height="167" />
+       <img class="lazyload" data-src="<?= base_url('images/ht-result-69.webp') ?>" data-target="#indicators" data-slide-to="6" alt="" width="335px" height="167" />
   </div>
   
     <div class="col-12 col-md-6 ">
-       <img class="lazyload" data-src="/images/ht-result-70.webp" data-target="#indicators" data-slide-to="7" alt="" width="335px" height="167" />
+       <img class="lazyload" data-src="<?= base_url('images/ht-result-70.webp') ?>" data-target="#indicators" data-slide-to="7" alt="" width="335px" height="167" />
   </div>
   
     <div class="col-12 col-md-6 ">
-       <img class="lazyload" src="/images/ht-result-71.webp" data-target="#indicators" data-slide-to="8" alt="" width="335px" height="167" />
+       <img class="lazyload" src="<?= base_url('images/ht-result-71.webp') ?>" data-target="#indicators" data-slide-to="8" alt="" width="335px" height="167" />
   </div>
   
     <div class="col-12 col-md-6 ">
-       <img class="lazyload" data-src="/images/ht-result-72.webp" data-target="#indicators" data-slide-to="9" alt="" width="335px" height="167" />
+       <img class="lazyload" data-src="<?= base_url('images/ht-result-72.webp') ?>" data-target="#indicators" data-slide-to="9" alt="" width="335px" height="167" />
   </div>
   
     <div class="col-12 col-md-6 ">
-       <img class="lazyload" data-src="/images/ht-result-73.webp" data-target="#indicators" data-slide-to="10" alt="" width="335px" height="167" />
+       <img class="lazyload" data-src="<?= base_url('images/ht-result-73.webp') ?>" data-target="#indicators" data-slide-to="10" alt="" width="335px" height="167" />
   </div>
    <div class="col-12 col-md-6 ">
-       <img class="lazyload" data-src="/images/ht-result-74.webp" data-target="#indicators" data-slide-to="11" alt="" width="335px" height="167" />
+       <img class="lazyload" data-src="<?= base_url('images/ht-result-74.webp') ?>" data-target="#indicators" data-slide-to="11" alt="" width="335px" height="167" />
   </div>
    
 </div>
@@ -139,41 +127,41 @@ $canonical_url = "https://www.akclinics.in/before-after-results/";
     
    
     <div class="carousel-item">
-      <img class="d-block w-100 lazyload" data-src="/images/ht-result-7.webp" alt="Second slide"/>
+      <img class="d-block w-100 lazyload" data-src="<?= base_url('images/ht-result-7.webp') ?>" alt="Second slide"/>
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100 lazyload " data-src="/images/ht-result-65.webp" alt="Third slide"/>
+      <img class="d-block w-100 lazyload " data-src="<?= base_url('images/ht-result-65.webp') ?>" alt="Third slide"/>
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100 lazyload" data-src="/images/ht-result-66.webp" alt="Fourth slide"/>
+      <img class="d-block w-100 lazyload" data-src="<?= base_url('images/ht-result-66.webp') ?>" alt="Fourth slide"/>
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100 lazyload" data-src="/images/ht-result-67.webp" alt="Fifth slide"/>
+      <img class="d-block w-100 lazyload" data-src="<?= base_url('images/ht-result-67.webp') ?>" alt="Fifth slide"/>
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100 lazyload" data-src="/images/ht-result-68.webp" alt="Sixth slide"/>
+      <img class="d-block w-100 lazyload" data-src="<?= base_url('images/ht-result-68.webp') ?>" alt="Sixth slide"/>
     </div>
      <div class="carousel-item ">
-       <img class="d-block w-100 lazyload" data-src="/images/ht-result-69.webp" alt="First slide"/>
+       <img class="d-block w-100 lazyload" data-src="<?= base_url('images/ht-result-69.webp') ?>" alt="First slide"/>
     </div>
      <div class="carousel-item ">
-       <img class="d-block w-100 lazyload" src="/images/ht-result-70.webp" alt="First slide"/>
+       <img class="d-block w-100 lazyload" src="<?= base_url('images/ht-result-70.webp') ?>" alt="First slide"/>
     </div>
      <div class="carousel-item ">
-       <img class="d-block w-100 lazyload" data-src="/images/ht-result-71.webp" alt="First slide"/>
+       <img class="d-block w-100 lazyload" data-src="<?= base_url('images/ht-result-71.webp') ?>" alt="First slide"/>
     </div>
      <div class="carousel-item ">
-       <img class="d-block w-100 lazyload" data-src="/images/ht-result-72.webp" alt="First slide"/>
+       <img class="d-block w-100 lazyload" data-src="<?= base_url('images/ht-result-72.webp') ?>" alt="First slide"/>
     </div>
      <div class="carousel-item ">
-       <img class="d-block w-100 lazyload" data-src="/images/ht-result-73.webp" alt="First slide"/>
+       <img class="d-block w-100 lazyload" data-src="<?= base_url('images/ht-result-73.webp') ?>" alt="First slide"/>
     </div>
      <div class="carousel-item ">
-       <img class="d-block w-100 lazyload" data-src="/images/ht-result-74.webp" alt="First slide"/>
+       <img class="d-block w-100 lazyload" data-src="<?= base_url('images/ht-result-74.webp') ?>" alt="First slide"/>
     </div>
     
      <div class="carousel-item active">
-       <img class="d-block w-100 lazyload" data-src="/images/ht-result-75.webp" alt="First slide"/>
+       <img class="d-block w-100 lazyload" data-src="<?= base_url('images/ht-result-75.webp') ?>" alt="First slide"/>
     </div>
     
     
@@ -205,7 +193,5 @@ echo view('partials/book_appointment');
 </aside> 
 </div> 
 </div> 
-</div> 
-
-	
-	<?= view('partials/footer') ?>
+</div>
+<?= $this->endSection() ?>

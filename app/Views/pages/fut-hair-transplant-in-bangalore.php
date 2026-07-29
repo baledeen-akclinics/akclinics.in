@@ -1,23 +1,15 @@
 <?php
 require APPPATH . 'Views/partials/location_city_logic.php';
-$title = "FUT Hair Transplant in Bangalore | FUT Hair Transplant Cost";
-$keywords = "fut hair transplant in bangalore, fut hair transplant cost in bangalore, fut hair transplant clinic in bangalore, cost of fut hair transplant in bangalore";
-$description = "FUT Hair Transplant in Bangalore at most reputed clinic from experienced surgeon. Click here to know more about FUT Hair Transplant & its cost in Bangalore.";
-$canonical_url = "https://www.akclinics.in/fut-hair-transplant-in-bangalore/";
 ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->extend('layouts/app') ?>
+
+<?= $this->section('title') ?>FUT Hair Transplant in Bangalore | FUT Hair Transplant Cost<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>fut hair transplant in bangalore, fut hair transplant cost in bangalore, fut hair transplant clinic in bangalore, cost of fut hair transplant in bangalore<?= $this->endSection() ?>
+<?= $this->section('description') ?>FUT Hair Transplant in Bangalore at most reputed clinic from experienced surgeon. Click here to know more about FUT Hair Transplant & its cost in Bangalore.<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/fut-hair-transplant-in-bangalore/<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <div id="fut" class="division">
 <div class="container">
 <div class="row">
@@ -206,5 +198,4 @@ echo view('partials/book_appointment');
   // testimonials
   echo view('partials/testimonials');
   ?>
-	
-	<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

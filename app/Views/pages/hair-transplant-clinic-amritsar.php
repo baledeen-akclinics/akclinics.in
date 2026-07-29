@@ -1,22 +1,11 @@
-<?php
-$title = "Hair Transplant in Amritsar | Best Hair Transplant Clinic in Amritsar";
-$keywords = "hair transplant in Amritsar, hair transplant in Amritsar cost, hair transplant at Amritsar, hair transplant clinic Amritsar, cost for hair transplant in Amritsar, hair regrowth treatment, hair restoration in Amritsar";
-$description = "Premium Hair Transplant clinic in Amritsar by top Surgeons for affordable hair transplant in Amritsar. Book your appointment now ! hair transplant surgeon in Amritsar, quality hair transplant in south Amritsar";
-$canonical_url = "https://www.akclinics.in/hair-transplant-clinic-amritsar/";
-?>
+<?= $this->extend('layouts/app') ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->section('title') ?>Hair Transplant in Amritsar | Best Hair Transplant Clinic in Amritsar<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>hair transplant in Amritsar, hair transplant in Amritsar cost, hair transplant at Amritsar, hair transplant clinic Amritsar, cost for hair transplant in Amritsar, hair regrowth treatment, hair restoration in Amritsar<?= $this->endSection() ?>
+<?= $this->section('description') ?>Premium Hair Transplant clinic in Amritsar by top Surgeons for affordable hair transplant in Amritsar. Book your appointment now ! hair transplant surgeon in Amritsar, quality hair transplant in south Amritsar<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/hair-transplant-clinic-amritsar/<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <div id="htbanner" class="division">
 <div class="container">
 <div class="row">
@@ -282,7 +271,9 @@ echo view('partials/book_appointment');
     z-index: 1050;
     display: block;"><a data-action="open" data-phone="919779162190" data-message="Hi." href="https://wa.me/919779162190" target="_blank" style="color:#fff; text-decoration:none;"><i class="fa fa-whatsapp" style="font-size:40px;padding: 9px 11px;"></i></a></div>
 </div>
-</div>
+<?= $this->endSection() ?>
+
+<?= $this->section('after_page') ?>
 <div class="row book-hide" style="min-height:40px; background-color:#fff; position: fixed ;bottom:0;
     z-index: 1050; width:105%; padding: 5px 0 5px 0;box-shadow: 0 4px 12px #e5e5e5;">
 <div class="col-md-10 offset-1">
@@ -302,7 +293,4 @@ echo view('partials/book_appointment');
 </ul>
 </div>
 </div>
-
-
-	
-	<?= view('partials/footer') ?>
+<?= $this->endSection() ?>

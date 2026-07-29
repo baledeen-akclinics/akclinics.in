@@ -1,22 +1,11 @@
-<?php
-$title = "Hair Transplant in Gurgaon - Best Clinic & Doctors at Affordable Cost in Gurgaon";
-$description = "Get your Hair Transplant in Gurgaon from Dr Kapil Dua, top surgeons for quality transplant at affordable cost. Book your appointment now to book free consultation with doctors!";
-$keywords = "hair transplant in Gurgaon, hair transplant in Gurgaon cost, hair transplant at Gurgaon, hair transplant clinic Gurgaon, cost for hair transplant in Gurgaon, hair regrowth treatment, hair restoration in Gurgaon";
-$canonical_url = "https://www.akclinics.in/hair-transplant-clinic-gurgaon/";
-?>
+<?= $this->extend('layouts/app') ?>
 
-<?= view('partials/head', [
-    'title' => $title ?? '',
-    'keywords' => $keywords ?? '',
-    'description' => $description ?? '',
-    'canonical_url' => $canonical_url ?? current_url(),
-]) ?>
-<body>
-<div id="loading" class="loader"></div>
-<div id="page" class="page">
-<header id="header" class="header">
-<?= view('partials/header') ?>
-</header>
+<?= $this->section('title') ?>Hair Transplant in Gurgaon - Best Clinic & Doctors at Affordable Cost in Gurgaon<?= $this->endSection() ?>
+<?= $this->section('description') ?>Get your Hair Transplant in Gurgaon from Dr Kapil Dua, top surgeons for quality transplant at affordable cost. Book your appointment now to book free consultation with doctors!<?= $this->endSection() ?>
+<?= $this->section('keywords') ?>hair transplant in Gurgaon, hair transplant in Gurgaon cost, hair transplant at Gurgaon, hair transplant clinic Gurgaon, cost for hair transplant in Gurgaon, hair regrowth treatment, hair restoration in Gurgaon<?= $this->endSection() ?>
+<?= $this->section('canonical') ?>https://www.akclinics.in/hair-transplant-clinic-gurgaon/<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 <div id="htbanner" class="division">
 <div class="container">
 <div class="row">
@@ -284,7 +273,9 @@ echo view('partials/book_appointment');
     z-index: 1050;
     display: block;"><a data-action="open" data-phone="919779162190" data-message="Hi." href="https://wa.me/919779162190" target="_blank" style="color:#fff; text-decoration:none;"><i class="fa fa-whatsapp" style="font-size:40px;padding: 9px 11px;"></i></a></div>
 </div>
-</div>
+<?= $this->endSection() ?>
+
+<?= $this->section('after_page') ?>
 <div class="row book-hide" style="min-height:40px; background-color:#fff; position: fixed ;bottom:0;
     z-index: 1050; width:105%; padding: 5px 0 5px 0;box-shadow: 0 4px 12px #e5e5e5;">
 <div class="col-md-10 offset-1">
@@ -308,3 +299,4 @@ echo view('partials/book_appointment');
 
 	
 	<?= view('partials/ggn_footer') ?>
+<?= $this->endSection() ?>
