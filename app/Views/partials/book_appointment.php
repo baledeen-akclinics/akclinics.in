@@ -1,8 +1,9 @@
+<link rel="stylesheet" href="<?= base_url('css/book-appointment.css') ?>">
 <div class="sidebar-timetable sidebar-div mt-20 mb-50" style="background:#fff;" id="book_appointment_form">
     <h5 class="h5-md mb-20 pad-20 text-center button-glow" style="color:#333;">BOOK APPOINTMENT</h5>				  
     <div class="col-lg-12">
         <!--<form method="POST">-->
-        <form action="<?= site_url('submit_form_new') ?>" method="POST"  id="formRequestCallback" name="formRequestCallback">
+       <form action="<?= site_url('book-appointment') ?>" method="POST" id="formRequestCallback" name="formRequestCallback">
             <!--<input style="display: none;" name="lp_url" type="hidden" value="https://akclinics.org/">-->
             <!--<input style="display: none;" name="return_url" type="hidden" value="https://akclinics.org/thanks.html">-->
             <!--<input style="display: none;" name="lead_source" type="hidden" value="9">-->
@@ -30,26 +31,31 @@
     		<div class="form-group" id="formlead">
                 <input type="text" class="form-control " name="City" placeholder="City*" required="required"><span id="errmsgcity"></span>
             </div>
-            <div class="form-group" id="formlead">
-                <!--<input type="text" class="form-control " name="Services" placeholder="Services*" required="required">-->
-                <select name="c_enquire_for" id="c_service" class="form-control" required="required">
-                    <option value="">Services*</option>
-                    <option value="Hair Transplant">Hair Transplant</option>
-                    <option value="Hair Loss Treatment">Hair Loss Treatment</option>
-                    <option value="Laser Hair Removal">Laser Hair Removal</option>
-                    <option value="PRP">PRP Therapy</option>
-                    <option value="Botox Treatment">Botox Injections</option>
-                    <option value="Dermal Fillers">Dermal Fillers</option>
-                    <option value="Acne treatment">Acne treatment </option>
-                    <option value="Carbon Peel">Carbon Peel Facial </option>
-                    <option value="Skin Whitening Treatment">Skin Whitening Treatment</option>
-                    <option value="Stretch Marks Treatment">Stretch Marks Treatment</option>
-                    <option value="Pigmentation Treatment">Pigmentation Treatment</option>
-                    <option value="Tattoo Removal">Laser Tattoo Removal</option>
-                    <option value="Others">Others</option>
-                </select>
-                <span id="errmsgc_service"></span>
-            </div>
+           <div class="form-group" id="formlead">
+
+    <div class="procedure-wrapper">
+
+        <input
+            type="text"
+            id="procedure"
+            name="procedure"
+            class="form-control"
+            autocomplete="off"
+            placeholder="Search Procedure*"
+            required>
+
+        <input
+            type="hidden"
+            id="procedure_id"
+            name="procedure_id">
+
+        <div id="procedureList" class="procedure-list"></div>
+
+    </div>
+
+    <span id="errmsgprocedure" class="text-danger"></span>
+
+</div>
     		<div class="form-group" id="formlead">
                 <!--<input type="text" class="form-control " name="Preferred_Time" placeholder="Preferred Time To Call*" required="required">-->
                 <select name="Preferred_Time" id="Preferred_Time" class="form-control" required="required">
@@ -73,3 +79,8 @@
         </form>
     </div>               
 </div>
+<script>
+const API_BASE_URL = "<?= env('api.baseURL') ?>";
+</script>
+
+<script src="<?= base_url('js/book-appointment.js') ?>"></script>

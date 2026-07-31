@@ -315,3 +315,37 @@
   }
 }
 </script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<style>
+#book_appointment_form .select2-container .select2-selection--single {
+  height: 42px;
+  border: 2px solid #ddd;
+  border-radius: 0;
+  margin: 7px 0;
+}
+#book_appointment_form .select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 38px;
+  padding-left: 15px;
+  color: #495057;
+  font-size: 16px;
+}
+#book_appointment_form .select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 38px;
+}
+#book_appointment_form .select2-container--default .select2-selection--single .select2-selection__placeholder {
+  color: #6c757d;
+}
+#book_appointment_form .select2-container--default.select2-container--focus .select2-selection--single,
+#book_appointment_form .select2-container--default.select2-container--open .select2-selection--single {
+  border-color: #80bdff;
+}
+#book_appointment_form .select2-dropdown {
+  border: 2px solid #ddd;
+  border-radius: 0;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="<?= base_url('js/book-appointment.js') ?>"></script>

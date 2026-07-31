@@ -8,110 +8,160 @@
 <?= $this->section('hide_loader') ?>1<?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<style>.form-control {
-    height: 42px !important;
-    margin: 7px 0;
-    font-size: 16px;
-    line-height: 1;
-    font-weight: 400;
-    border: 2px solid #ddd;
-    padding: 4px 15px;
-}</style>
+
+<link rel="stylesheet" href="<?= base_url('css/contact.css') ?>">
+
 
 <div id="service-page" class="wide-60 service-page-section division">
-<div class="container">
-<div class="row">
+  <div class="container">
+    <div class="row">
 
-<div class="col-lg-8">
+      <div class="col-lg-8">
 
-	
-	<div class="row">
-<h1 class="section-id blue-color" style="width:100%;">Clinic Address</h1>
-<div class="col-md-6">
-<div class="contact-box mb-40">
-<p><i class="fa fa-map-marker" style="font-size:18px;"></i>&nbsp;&nbsp;&nbsp;1st Floor, 316 The Mayfair, 100 Feet Road</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Indiranagar, Bengaluru, Karnataka-560038</p>
 
-</div></div>
+        <div class="row">
+          <h1 class="section-id blue-color" style="width:100%;">Clinic Address</h1>
+          <div class="col-md-6">
+            <div class="contact-box mb-40">
+              <p><i class="fa fa-map-marker" style="font-size:18px;"></i>&nbsp;&nbsp;&nbsp;1st Floor, 316 The Mayfair, 100 Feet Road</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Indiranagar, Bengaluru, Karnataka-560038</p>
 
-<div class="col-md-6"><div class="contact-box mb-40">
-<p><i class="fa fa-envelope-o"></i>&nbsp; Email &nbsp;&nbsp;&nbsp;: info@akclinics.in</p>
-<p><i class="fa fa-mobile"></i>&nbsp;&nbsp;&nbsp;Mobile &nbsp;: <a href="tel:+919779162190">+919779162190</a></p></div></div>
-<div class="col-md-12">
-
-<div class="form-holder mb-40" id="contact_us_form">
-<h1 class="section-id blue-color">Contact us</h1>
-<form action="<?= site_url('submit_form_new') ?>" method="POST"  id="formRequestCallback" name="formRequestCallback">
-            <!--<input style="display: none;" name="lp_url" type="hidden" value="https://akclinics.org/">-->
-            <!--<input style="display: none;" name="return_url" type="hidden" value="https://akclinics.org/thanks.html">-->
-            <!--<input style="display: none;" name="lead_source" type="hidden" value="9">-->
-            <!--<input style="display: none;" name="enquire_for" type="hidden" value="Hair Transplant">-->
-            <input name="c_submition" type="hidden" value="true">
-            <input style="display: none;" name="source_website" type="hidden" value="akclinics.in">
-            <input style="display: none;" name="page_url" type="hidden" value="<?= site_url('contact') ?>">
-            <!--<div class="error-form display-hide">Failed !! please check required fields….</div>-->
-            <?php if(isset($_REQUEST['status']) && $_REQUEST['status'] == 'success')
-            {?>
-            <div style="color: green;" class="success-form display-hide1">Thank you for submitting your details, Our patient advisor will contact you soon.</div>
-            <?php }?>
-            
-            
-            
-                            <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Full Name</label>
-                            <div class="col-sm-10">
-                           <input type="text" class="form-control " name="Name" id="name" placeholder="Full name*" required="required">
-                            <span id="errmsgname"></span>
-                            </div>
-                            </div>
-                <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Mobile</label>
-                            <div class="col-sm-10">
-                           <input type="number" class="form-control " name="Mobile" placeholder="Mobile*" required="required">
-                             <span id="errmsg"></span>
-                            </div>
-                            </div>
-            <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                          <input type="email" class="form-control" id="email" name="Email" placeholder="Email*" required="required">
-                <span id="errmsgEmail"></span>
-                            </div>
-                            </div>
-            
-             <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">City*</label>
-                            <div class="col-sm-10">
-                        <input type="text" class="form-control " name="City" placeholder="City*" required="required"><span id="errmsgcity"></span>
-                <span id="errmsgEmail"></span>
-                            </div>
-                            </div>
-            <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Message*</label>
-                            <div class="col-sm-10">
-                        <textarea class="form-control " name="Message" placeholder="Message*" required="required" row="3" style="height:100px !important;"></textarea><span id="errmsgcity"></span>
-                <span id="errmsgEmail"></span>
-                            </div>
-                            </div>
-          
-    	
-            <div class="pdt10 pdb10 text-center">             
-                <button type="submit" name="submition" class="btn btn-blue blue-hover  mt-2 mb-2" id="">Submit Now</button>
             </div>
-        </form>
-</div>
-</div>
-</div>
-	
-</div> 
+          </div>
 
-<aside id="sidebar" class="col-lg-4"><br>
-<div class="map"><iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15556.050660773453!2d77.59973899999997!3d12.906907000000007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae151bc82db5f9%3A0xda6389d915267a4e!2sAK+Clinics+-+Hair+Transplant+Bengaluru!5e0!3m2!1sen!2sin!4v1440415994952" width="100%" height="400" frameborder="0" allowfullscreen="allowfullscreen" loading="lazy"></iframe></div>
-	<br><br>
-<?= view('partials/services', ['important_links' => $important_links ?? []]) ?> 
+          <div class="col-md-6">
+            <div class="contact-box mb-40">
+              <p><i class="fa fa-envelope-o"></i>&nbsp; Email &nbsp;&nbsp;&nbsp;: info@akclinics.in</p>
+              <p><i class="fa fa-mobile"></i>&nbsp;&nbsp;&nbsp;Mobile &nbsp;: <a href="tel:+919779162190">+919779162190</a></p>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-holder mb-40" id="contact_us_form">
+              <h1 class="section-id blue-color">Contact us</h1>
 
-</aside> 
-</div> 
-</div> 
+              <form id="enquiryForm">
+
+                <input type="hidden" id="source_url" name="source_url">
+                <input type="hidden" id="source_id" name="source_id" value="website">
+                <input type="hidden" id="campaign_id" name="campaign_id" value="120212345678901234">
+                <input type="hidden" id="campaign_name" name="campaign_name" value="Website">
+                <input type="hidden" id="ad_id" name="ad_id" value="1">
+                <input type="hidden" id="ad_name" name="ad_name" value="1">
+                <input type="hidden" id="form_id" name="form_id" value="website-contact-form">
+                <input type="hidden" id="form_name" name="form_name" value="Contact Us">
+
+                <!-- Full Name -->
+                <div class="form-floating mb-3">
+                  <label for="full_name">Full Name <span class="text-danger">*</span></label>
+                  <input type="text"
+                    class="form-control"
+                    id="full_name"
+                    name="full_name"
+                    placeholder=" ">
+
+                  <span id="errmsgfullname" class="error-message"></span>
+                </div>
+
+                <!-- Mobile -->
+                <div class="form-floating mb-3">
+                  <label for="mobile">Mobile <span class="text-danger">*</span></label>
+                  <input type="text"
+                    class="form-control"
+                    id="mobile"
+                    name="mobile"
+                    placeholder=" ">
+
+                  <span id="errmsgmobile" class="error-message"></span>
+                </div>
+
+                <!-- Email -->
+                <div class="form-floating mb-3">
+                  <label for="email">Email <span class="text-danger">*</span></label>
+                  <input type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    placeholder=" ">
+
+                  <span id="errmsgemail" class="error-message"></span>
+                </div>
+
+                <!-- City -->
+                <div class="form-floating mb-3">
+                  <label for="city">City</label>
+                  <input type="text"
+                    class="form-control"
+                    id="city"
+                    name="city"
+                    placeholder=" ">
+
+                  <span id="errmsgcity" class="error-message"></span>
+                </div>
+
+                <!-- Procedure -->
+                <div class="mb-3">
+                  <div class="procedure-wrapper">
+                    <div class="form-floating">
+                      <label for="procedure">Procedure <span class="text-danger">*</span></label>
+                      <input type="text"
+                        class="form-control"
+                        id="procedure"
+                        name="procedure"
+                        autocomplete="off"
+                        placeholder=" ">
+
+
+
+                      <input type="hidden"
+                        id="procedure_id"
+                        name="procedure_id">
+
+                      <div id="procedureList" class="procedure-list"></div>
+                    </div>
+                  </div>
+
+                  <span id="errmsgprocedure" class="error-message"></span>
+                </div>
+
+                <!-- Message -->
+                <div class="form-floating mb-3">
+                  <label for="message">Message</label>
+                  <textarea class="form-control"
+                    id="message"
+                    name="Message"
+                    placeholder=" "
+                    style="height:180px"></textarea>
+
+
+                  <span id="errmsgmessage" class="error-message"></span>
+                </div>
+
+                <!-- Submit -->
+                <div class="text-center">
+                  <button type="submit"
+                    class="btn btn-blue blue-hover">
+                    Submit Now
+                  </button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <aside id="sidebar" class="col-lg-4"><br>
+        <div class="map"><iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15556.050660773453!2d77.59973899999997!3d12.906907000000007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae151bc82db5f9%3A0xda6389d915267a4e!2sAK+Clinics+-+Hair+Transplant+Bengaluru!5e0!3m2!1sen!2sin!4v1440415994952" width="100%" height="400" frameborder="0" allowfullscreen="allowfullscreen" loading="lazy"></iframe></div>
+        <br><br>
+        <?= view('partials/services', ['important_links' => $important_links ?? []]) ?>
+
+      </aside>
+    </div>
+  </div>
 </div>
+<script>
+  const API_BASE_URL = "<?= env('api.baseURL') ?>";
+</script>
+<script src="<?= base_url('js/contact.js') ?>"></script>
 <?= $this->endSection() ?>

@@ -3,6 +3,8 @@
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
+$routes->post('book-appointment', 'BookAppointmentController::submit');
+$routes->post('contact/submit', 'ContactController::submit');
 $routes->get('/', 'PagesController::index');
 $routes->post('submit_form_new', 'LeadController::submit');
 $routes->post('submit_form_new/', 'LeadController::submit');
