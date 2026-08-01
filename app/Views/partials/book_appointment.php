@@ -21,9 +21,19 @@
                 <span id="errmsgname"></span>
             </div>                           
             <div class="form-group" id="formlead">
-                <input type="number" class="form-control " name="Mobile" placeholder="Mobile*" required="required">
-                <span id="errmsg"></span>
-            </div>
+    <input
+        type="text"
+        class="form-control"
+        name="Mobile"
+        placeholder="Mobile*"
+        required
+        maxlength="10"
+        inputmode="numeric"
+        pattern="[6-9][0-9]{9}"
+        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10);"
+    >
+    <span id="errmsg"></span>
+</div>
             <div class="form-group" id="formlead">
                 <input type="email" class="form-control" id="email" name="Email" placeholder="Email*" required="required">
                 <span id="errmsgEmail"></span>
@@ -83,4 +93,3 @@
 const API_BASE_URL = "<?= env('api.baseURL') ?>";
 </script>
 
-<script src="<?= base_url('js/book-appointment.js') ?>"></script>

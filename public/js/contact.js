@@ -163,9 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
           list.style.display = "block";
         }
       })
-      .catch(function (err) {
-        console.log(err);
-      });
+      .catch(function (err) {});
   }
 
   // Input Focus
@@ -225,19 +223,39 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const formData = new FormData(this);
-
-      fetch("<?= site_url('contact/submit') ?>", {
+      fetch(CONTACT_SUBMIT_URL, {
         method: "POST",
         body: formData,
       })
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          if (response.response && response.response.status) {
+            Swal.fire({
+              icon: "success",
+              title: "Success",
+              text: response.response.message,
+              confirmButtonText: "OK",
+                 confirmButtonColor: "#22c55e",
+            });
 
-          // this.reset();
+            document.getElementById("enquiryForm").reset();
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Failed",
+              text: response.response.message || "Something went wrong.",
+              confirmButtonText: "OK",
+            });
+          }
         })
-        .catch(function (err) {
-          console.log(err);
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Unable to submit the form.",
+            confirmButtonText: "OK",
+            
+          });
         });
     });
 });

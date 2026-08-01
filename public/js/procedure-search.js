@@ -4,24 +4,23 @@ document.addEventListener("DOMContentLoaded", function () {
     function initProcedure() {
 
         if (typeof jQuery === "undefined") {
-            console.log("Waiting for jQuery...");
+       
             setTimeout(initProcedure, 100);
             return;
         }
 
         if (typeof $.fn.select2 === "undefined") {
-            console.error("Select2 not loaded");
+       
             return;
         }
 
-        console.log("jQuery Loaded");
-        console.log("Select2 Loaded");
+       
 
         const procedure = $("#procedure");
         const hidden = $("#procedure_id");
 
         if (!procedure.length) {
-            console.error("Procedure field not found");
+           
             return;
         }
 
