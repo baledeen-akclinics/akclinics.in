@@ -64,12 +64,20 @@
 
                 <!-- Mobile -->
                 <div class="form-floating mb-3">
-                  <label for="mobile">Mobile <span class="text-danger">*</span></label>
-                  <input type="text"
+                  <label for="mobile">
+                    Mobile <span class="text-danger">*</span>
+                  </label>
+
+                  <input
+                    type="text"
                     class="form-control"
                     id="mobile"
                     name="mobile"
-                    placeholder=" ">
+                    placeholder=" "
+                    maxlength="10"
+                    inputmode="numeric"
+                    pattern="[6-9][0-9]{9}"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10);">
 
                   <span id="errmsgmobile" class="error-message"></span>
                 </div>
@@ -162,6 +170,9 @@
 </div>
 <script>
   const API_BASE_URL = "<?= env('api.baseURL') ?>";
+  const CONTACT_SUBMIT_URL = "<?= site_url('contact/submit') ?>";
 </script>
+
+
 <script src="<?= base_url('js/contact.js') ?>"></script>
 <?= $this->endSection() ?>
