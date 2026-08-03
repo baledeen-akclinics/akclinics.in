@@ -2,7 +2,11 @@ document.addEventListener("DOMContentLoaded", function () {
   //==========================================
   // Validation Functions
   //==========================================
+const pageUrlField = document.getElementById("page_url");
 
+if (pageUrlField) {
+    pageUrlField.value = window.location.href;
+}
   function validateName() {
     const name = document.getElementById("name").value.trim();
     const pattern = /^[A-Za-z ]+$/;
@@ -142,9 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         list.style.display = "block";
       })
-      .catch(function (err) {
-        console.error(err);
-      });
+      .catch(function (err) {});
   }
 
   input.addEventListener("focus", function () {
@@ -240,8 +242,6 @@ document.addEventListener("DOMContentLoaded", function () {
           submitBtn.innerHTML = "Submit Now";
         })
         .catch((err) => {
-          console.log(err);
-
           submitBtn.disabled = false;
           submitBtn.innerHTML = "Submit Now";
 
