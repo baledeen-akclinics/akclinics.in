@@ -27,6 +27,12 @@ class BookAppointmentController extends Controller
             ]);
         }
 
+        // Helper: POST value or null when missing/empty (no validation error)
+        $attr = function (string $key) {
+            $value = $this->request->getPost($key);
+            return ($value !== null && $value !== '') ? $value : null;
+        };
+
         $payload = [
             "name"                  => trim($this->request->getPost('Name')),
             "email"                 => trim($this->request->getPost('Email')),
@@ -35,19 +41,33 @@ class BookAppointmentController extends Controller
             "city"                  => trim($this->request->getPost('City')),
 
             "source_id"             => "website-book-appointment",
-            "source_url"            => $this->request->getPost('page_url'),
+            // Current page URL from form (set by book-appointment.js)
+            "source_url"            => $attr('page_url'),
             "description"           => "Preferred Time : " . $this->request->getPost('Preferred_Time'),
 
             "campaign_id"           => "120212345678901234",
-            "campaign_name"         => "Website",
+            // From UTM (utm_campaign → campaign_name); fallback if missing
+            "campaign_name"         => $attr('campaign_name') ?? 'Website',
 
             "ad_id"                 => null,
             "ad_name"               => null,
 
             "form_id"               => "website-book-appointment",
-            "form_name"             => "Book Appointment",
+            // Page name from form (set by book-appointment.js from document.title)
+            "form_name"             => $attr('form_name') ?? 'Book Appointment',
 
             "procedure_category_id" => (int) $this->request->getPost('procedure_id'),
+
+            // Lead Attribution — from hidden fields (cookie → form → POST); missing = null
+            "utm_source"            => $attr('utm_source'),
+            "utm_medium"            => $attr('utm_medium'),
+            "utm_campaign"          => $attr('utm_campaign'),
+            "utm_content"           => $attr('utm_content'),
+            "utm_term"              => $attr('utm_term'),
+            "gclid"                 => $attr('gclid'),
+            "fbclid"                => $attr('fbclid'),
+            "landing_page"          => $attr('landing_page'),
+            "referrer"              => $attr('referrer'),
         ];
 
         try {
