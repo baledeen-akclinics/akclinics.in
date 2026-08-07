@@ -2,8 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Current page URL → source_url
   var sourceUrlInput = document.getElementById("source_url");
   if (sourceUrlInput) {
-    sourceUrlInput.value =
-      window.location.origin + window.location.pathname;
+    sourceUrlInput.value = window.location.href;
   }
 
   // Current page name → form_name (document title without site suffix)

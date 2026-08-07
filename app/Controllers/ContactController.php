@@ -44,8 +44,7 @@ class ContactController extends Controller
 
             // Static values
             "source_id"             => "website-contact-form",
-            // From form page (set by contact.js); fallbacks if missing
-            "source_url"            => $attr('source_url') ?? 'https://www.akclinics.com/contact',
+            "source_url" => $attr('source_url'),
             "description"           => $this->request->getPost('Message'),
             "campaign_id"           => "120212345678901234",
             "campaign_name"         => "Website Organic",
