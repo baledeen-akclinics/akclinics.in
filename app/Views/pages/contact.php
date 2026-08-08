@@ -39,7 +39,7 @@
             <div class="form-holder mb-40" id="contact_us_form">
               <h1 class="section-id blue-color">Contact us</h1>
 
-              <form id="enquiryForm">
+              <form id="enquiryForm" novalidate>
 
                 <input type="hidden" id="source_url" name="source_url">
                 <input type="hidden" id="source_id" name="source_id" value="website">
@@ -48,7 +48,18 @@
                 <input type="hidden" id="ad_id" name="ad_id" value="1">
                 <input type="hidden" id="ad_name" name="ad_name" value="1">
                 <input type="hidden" id="form_id" name="form_id" value="website-contact-form">
-                <input type="hidden" id="form_name" name="form_name" value="Contact Us">
+                <input type="hidden" id="form_name" name="form_name" value="Contact us">
+
+                <!-- Lead Attribution — filled from cookie by utm-lead-attribution.js on submit -->
+                <input type="hidden" id="utm_source" name="utm_source">
+                <input type="hidden" id="utm_medium" name="utm_medium">
+                <input type="hidden" id="utm_campaign" name="utm_campaign">
+                <input type="hidden" id="utm_content" name="utm_content">
+                <input type="hidden" id="utm_term" name="utm_term">
+                <input type="hidden" id="gclid" name="gclid">
+                <input type="hidden" id="fbclid" name="fbclid">
+                <input type="hidden" id="landing_page" name="landing_page">
+                <input type="hidden" id="referrer" name="referrer">
 
                 <!-- Full Name -->
                 <div class="form-floating mb-3">
@@ -96,7 +107,7 @@
 
                 <!-- City -->
                 <div class="form-floating mb-3">
-                  <label for="city">City</label>
+                  <label for="city">City <span class="text-danger">*</span></label>
                   <input type="text"
                     class="form-control"
                     id="city"
@@ -109,23 +120,14 @@
                 <!-- Procedure -->
                 <div class="mb-3">
                   <div class="procedure-wrapper">
-                    <div class="form-floating">
-                      <label for="procedure">Procedure <span class="text-danger">*</span></label>
-                      <input type="text"
-                        class="form-control"
-                        id="procedure"
-                        name="procedure"
-                        autocomplete="off"
-                        placeholder=" ">
-
-
-
-                      <input type="hidden"
-                        id="procedure_id"
-                        name="procedure_id">
-
-                      <div id="procedureList" class="procedure-list"></div>
-                    </div>
+                    <label for="procedure">Procedure <span class="text-danger">*</span></label>
+                    <select
+                      id="procedure"
+                      class="form-control">
+                      <option value=""></option>
+                    </select>
+                    <input type="hidden" id="procedure_name" name="procedure">
+                    <input type="hidden" id="procedure_id" name="procedure_id">
                   </div>
 
                   <span id="errmsgprocedure" class="error-message"></span>
@@ -174,5 +176,5 @@
 </script>
 
 
-<script src="<?= base_url('js/contact.js') ?>"></script>
+<script src="<?= base_url('js/contact.js') ?>?v=<?= @filemtime(FCPATH . 'js/contact.js') ?: time() ?>"></script>
 <?= $this->endSection() ?>

@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const procedure = $("#procedure");
         const hidden = $("#procedure_id");
+        const hiddenName = $("#procedure_name");
 
         if (!procedure.length) {
            
@@ -70,32 +71,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 cache: true
             },
 
-            matcher: function (params, data) {
-
-                if ($.trim(params.term) === "") {
-                    return data;
-                }
-
-                if (typeof data.text === "undefined") {
-                    return null;
-                }
-
-                if (
-                    data.text.toUpperCase().indexOf(params.term.toUpperCase()) === 0
-                ) {
-                    return data;
-                }
-
-                return null;
-            }
+            minimumInputLength: 0
         });
 
         procedure.on("select2:select", function (e) {
-            hidden.val(e.params.data.id);
+            if (hidden.length) {
+                hidden.val(e.params.data.id);
+            }
+            // Required by ContactController / BookAppointmentController validation
+            if (hiddenName.length) {
+                hiddenName.val(e.params.data.text);
+            }
         });
 
         procedure.on("select2:clear", function () {
-            hidden.val("");
+            if (hidden.length) {
+                hidden.val("");
+            }
+            if (hiddenName.length) {
+                hiddenName.val("");
+            }
         });
 
     }

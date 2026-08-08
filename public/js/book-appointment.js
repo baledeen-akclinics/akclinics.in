@@ -1,14 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
-  //==========================================
-  // Validation Functions
-  //==========================================
-const pageUrlField = document.getElementById("page_url");
+  const form = document.getElementById("formRequestCallback");
 
-if (pageUrlField) {
+  if (!form) {
+    return;
+  }
+
+  const pageUrlField = document.getElementById("page_url");
+  if (pageUrlField) {
     pageUrlField.value = window.location.href;
-}
+  }
+
+  // Current page name → form_name (document title without site suffix)
+  var formNameInput = document.getElementById("form_name");
+  if (formNameInput) {
+    var pageTitle = (document.title || "").trim();
+    formNameInput.value =
+      pageTitle.split(" - ")[0].trim() || pageTitle || "Book Appointment";
+  }
+
+  const nameInput = document.getElementById("name");
+  const mobileInput = form.querySelector('input[name="Mobile"]');
+  const emailInput = document.getElementById("email");
+  const cityInput = form.querySelector('input[name="City"]');
+  const timeInput = document.getElementById("Preferred_Time");
+  const hidden = document.getElementById("procedure_id");
+  const hiddenName = document.getElementById("procedure_name");
+
   function validateName() {
-    const name = document.getElementById("name").value.trim();
+    const name = nameInput.value.trim();
     const pattern = /^[A-Za-z ]+$/;
 
     if (name === "") {
@@ -33,7 +52,7 @@ if (pageUrlField) {
   }
 
   function validateMobile() {
-    const mobile = document.querySelector('input[name="Mobile"]').value.trim();
+    const mobile = mobileInput.value.trim();
 
     if (mobile === "") {
       document.getElementById("errmsg").innerHTML = "Mobile Number is required";
@@ -51,7 +70,7 @@ if (pageUrlField) {
   }
 
   function validateEmail() {
-    const email = document.getElementById("email").value.trim();
+    const email = emailInput.value.trim();
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (email === "") {
@@ -70,7 +89,8 @@ if (pageUrlField) {
   }
 
   function validateCity() {
-    const city = document.querySelector('input[name="City"]').value.trim();
+    const city = cityInput.value.trim();
+    const pattern = /^[A-Za-z ]+$/;
 
     if (city === "") {
       document.getElementById("errmsgcity").innerHTML = "City is required";
@@ -78,7 +98,14 @@ if (pageUrlField) {
     }
 
     if (city.length < 2) {
-      document.getElementById("errmsgcity").innerHTML = "Enter valid city";
+      document.getElementById("errmsgcity").innerHTML =
+        "Minimum 2 characters required";
+      return false;
+    }
+
+    if (!pattern.test(city)) {
+      document.getElementById("errmsgcity").innerHTML =
+        "Only letters and spaces allowed";
       return false;
     }
 
@@ -86,172 +113,103 @@ if (pageUrlField) {
     return true;
   }
 
-  //==========================================
-  // Blur Events
-  //==========================================
+  function validateProcedure() {
+    if (!hidden || hidden.value === "") {
+      document.getElementById("errmsgprocedure").innerHTML =
+        "Please select Procedure";
+      return false;
+    }
 
-  document.getElementById("name").addEventListener("blur", validateName);
-  document
-    .querySelector('input[name="Mobile"]')
-    .addEventListener("blur", validateMobile);
-  document.getElementById("email").addEventListener("blur", validateEmail);
-  document
-    .querySelector('input[name="City"]')
-    .addEventListener("blur", validateCity);
-
-  //==========================================
-  // Procedure Search
-  //==========================================
-
-  const input = document.getElementById("procedure");
-  const hidden = document.getElementById("procedure_id");
-  const list = document.getElementById("procedureList");
-
-  if (!input || !hidden || !list) {
-    return;
+    document.getElementById("errmsgprocedure").innerHTML = "";
+    return true;
   }
 
-  let timer = null;
+  function validatePreferredTime() {
+    if (!timeInput || timeInput.value === "") {
+      document.getElementById("errmsgtime").innerHTML =
+        "Preferred Time is required";
+      return false;
+    }
 
-  function loadProcedures(keyword = "") {
-    fetch(
-      API_BASE_URL + "/procedure-categories?q=" + encodeURIComponent(keyword),
-    )
-      .then((res) => res.json())
+    document.getElementById("errmsgtime").innerHTML = "";
+    return true;
+  }
+
+  nameInput.addEventListener("blur", validateName);
+  mobileInput.addEventListener("blur", validateMobile);
+  emailInput.addEventListener("blur", validateEmail);
+  cityInput.addEventListener("blur", validateCity);
+  timeInput.addEventListener("change", validatePreferredTime);
+  timeInput.addEventListener("blur", validatePreferredTime);
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let valid = true;
+
+    if (!validateName()) valid = false;
+    if (!validateMobile()) valid = false;
+    if (!validateEmail()) valid = false;
+    if (!validateCity()) valid = false;
+    if (!validateProcedure()) valid = false;
+    if (!validatePreferredTime()) valid = false;
+
+    if (!valid) {
+      const firstError = form.querySelector(".error-message:not(:empty)");
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
+
+    const submitBtn = document.getElementById("sbtForm");
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = "Submitting...";
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+      },
+    })
+      .then((response) => response.json())
       .then((response) => {
-        list.innerHTML = "";
+        Swal.fire({
+          icon: response.status ? "success" : "error",
+          title: response.status ? "Success" : "Failed",
+          text: response.message,
+          confirmButtonText: "OK",
+          confirmButtonColor: "#22c55e",
+        });
 
-        if (!response.status || !response.data.procedure_categories.length) {
-          list.style.display = "none";
-          return;
+        if (response.status) {
+          form.reset();
+
+          if (hidden) hidden.value = "";
+          if (hiddenName) hiddenName.value = "";
+
+          if (typeof jQuery !== "undefined" && jQuery("#procedure").length) {
+            jQuery("#procedure").val(null).trigger("change");
+          }
         }
 
-        response.data.procedure_categories.forEach(function (item) {
-          const div = document.createElement("div");
-
-          div.className = "procedure-item";
-          div.innerText = item.name;
-
-          div.onclick = function () {
-            input.value = item.name;
-            hidden.value = item.id;
-
-            document.getElementById("errmsgprocedure").innerHTML = "";
-
-            list.style.display = "none";
-          };
-
-          list.appendChild(div);
-        });
-
-        list.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "Request Call Back";
       })
-      .catch(function (err) {});
-  }
+      .catch((err) => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "Request Call Back";
 
-  input.addEventListener("focus", function () {
-    if (list.children.length > 0) {
-      list.style.display = "block";
-    } else {
-      loadProcedures("");
-    }
-  });
-
-  input.addEventListener("input", function () {
-    hidden.value = "";
-
-    clearTimeout(timer);
-
-    timer = setTimeout(function () {
-      loadProcedures(input.value.trim());
-    }, 500);
-  });
-
-  document.addEventListener("click", function (e) {
-    if (!e.target.closest(".procedure-wrapper")) {
-      list.style.display = "none";
-    }
-  });
-
-  //==========================================
-  // Submit Validation
-  //==========================================
-
-  //==========================================
-  // Submit Form
-  //==========================================
-
-  const form = document.getElementById("formRequestCallback");
-
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      let valid = true;
-
-      if (!validateName()) valid = false;
-      if (!validateMobile()) valid = false;
-      if (!validateEmail()) valid = false;
-      if (!validateCity()) valid = false;
-
-      if (hidden.value === "") {
-        document.getElementById("errmsgprocedure").innerHTML =
-          "Please select Procedure";
-
-        valid = false;
-      } else {
-        document.getElementById("errmsgprocedure").innerHTML = "";
-      }
-
-      if (!valid) {
-        return;
-      }
-
-      const submitBtn = document.getElementById("sbtForm");
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = "Submitting...";
-
-      const formData = new FormData(form);
-
-      fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-        },
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          Swal.fire({
-            icon: response.status ? "success" : "error",
-            title: response.status ? "Success" : "Failed",
-            text: response.message,
-            confirmButtonText: "OK",
-            confirmButtonColor: "#22c55e",
-          });
-
-          if (response.status) {
-            form.reset();
-
-            hidden.value = "";
-            list.innerHTML = "";
-          }
-
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = "Submit Now";
-        })
-        .catch((err) => {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = "Submit Now";
-
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Unable to submit the form.",
-            confirmButtonText: "OK",
-          });
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Unable to submit the form.",
+          confirmButtonText: "OK",
         });
-    });
-  }
+      });
+  });
 });

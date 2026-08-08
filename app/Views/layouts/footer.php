@@ -315,37 +315,58 @@
   }
 }
 </script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 <style>
-#book_appointment_form .select2-container .select2-selection--single {
+#book_appointment_form .select2-container .select2-selection--single,
+#contact_us_form .select2-container .select2-selection--single {
   height: 42px;
   border: 2px solid #ddd;
   border-radius: 0;
   margin: 7px 0;
 }
-#book_appointment_form .select2-container--default .select2-selection--single .select2-selection__rendered {
+#book_appointment_form .select2-container--default .select2-selection--single .select2-selection__rendered,
+#contact_us_form .select2-container--default .select2-selection--single .select2-selection__rendered {
   line-height: 38px;
   padding-left: 15px;
   color: #495057;
   font-size: 16px;
 }
-#book_appointment_form .select2-container--default .select2-selection--single .select2-selection__arrow {
+#book_appointment_form .select2-container--default .select2-selection--single .select2-selection__arrow,
+#contact_us_form .select2-container--default .select2-selection--single .select2-selection__arrow {
   height: 38px;
 }
-#book_appointment_form .select2-container--default .select2-selection--single .select2-selection__placeholder {
+#book_appointment_form .select2-container--default .select2-selection--single .select2-selection__placeholder,
+#contact_us_form .select2-container--default .select2-selection--single .select2-selection__placeholder {
   color: #6c757d;
 }
 #book_appointment_form .select2-container--default.select2-container--focus .select2-selection--single,
-#book_appointment_form .select2-container--default.select2-container--open .select2-selection--single {
+#book_appointment_form .select2-container--default.select2-container--open .select2-selection--single,
+#contact_us_form .select2-container--default.select2-container--focus .select2-selection--single,
+#contact_us_form .select2-container--default.select2-container--open .select2-selection--single {
   border-color: #80bdff;
 }
-#book_appointment_form .select2-dropdown {
+#book_appointment_form .select2-dropdown,
+#contact_us_form .select2-dropdown {
   border: 2px solid #ddd;
   border-radius: 0;
+  z-index: 9999;
+}
+#book_appointment_form .select2-results__option,
+#contact_us_form .select2-results__option {
+  color: #333;
+  padding: 8px 12px;
+}
+#contact_us_form .select2-container .select2-selection--single {
+  border-radius: 5px;
+}
+#contact_us_form .select2-container--default.select2-container--focus .select2-selection--single,
+#contact_us_form .select2-container--default.select2-container--open .select2-selection--single {
+  border-color: #ff8c00;
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="<?= base_url('js/book-appointment.js') ?>"></script>
+<!-- Must stay deferred AFTER compressed.js so Select2 binds to that jQuery (not overwritten) -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+<script src="<?= base_url('js/procedure-search.js') ?>?v=<?= @filemtime(FCPATH . 'js/procedure-search.js') ?: time() ?>" defer></script>
+<script src="<?= base_url('js/book-appointment.js') ?>?v=<?= @filemtime(FCPATH . 'js/book-appointment.js') ?: time() ?>" defer></script>
+<script src="<?= base_url('js/utm-lead-attribution.js') ?>?v=<?= @filemtime(FCPATH . 'js/utm-lead-attribution.js') ?: time() ?>" defer></script>

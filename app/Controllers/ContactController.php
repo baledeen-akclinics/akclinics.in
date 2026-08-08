@@ -28,6 +28,12 @@ class ContactController extends Controller
             ]);
         }
 
+        // Helper: POST value or null when missing/empty (no validation error)
+        $attr = function (string $key) {
+            $value = $this->request->getPost($key);
+            return ($value !== null && $value !== '') ? $value : null;
+        };
+
         // API Payload (Static values for testing)
         $payload = [
             "name"                  => $this->request->getPost('full_name'),
@@ -38,17 +44,28 @@ class ContactController extends Controller
 
             // Static values
             "source_id"             => "website-contact-form",
-            "source_url"            => "https://www.akclinics.com/contact",
+            "source_url" => $attr('source_url'),
             "description"           => $this->request->getPost('Message'),
             "campaign_id"           => "120212345678901234",
             "campaign_name"         => "Website Organic",
             "ad_id"                 => null,
             "ad_name"               => null,
             "form_id"               => "website-contact-form",
-            "form_name"             => "Contact Us",
+            "form_name"             => $attr('form_name') ?? 'Contact Us',
 
             // Dynamic procedure id
             "procedure_category_id" => (int) $this->request->getPost('procedure_id'),
+
+            // Lead Attribution — from hidden fields (cookie → form → POST); missing = null
+            "utm_source"            => $attr('utm_source'),
+            "utm_medium"            => $attr('utm_medium'),
+            "utm_campaign"          => $attr('utm_campaign'),
+            "utm_content"           => $attr('utm_content'),
+            "utm_term"              => $attr('utm_term'),
+            "gclid"                 => $attr('gclid'),
+            "fbclid"                => $attr('fbclid'),
+            "landing_page"          => $attr('landing_page'),
+            "referrer"              => $attr('referrer'),
         ];
 
         try {

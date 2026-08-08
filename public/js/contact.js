@@ -1,7 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Current URL
-  document.getElementById("source_url").value =
-    window.location.origin + window.location.pathname;
+  // Current page URL → source_url
+  var sourceUrlInput = document.getElementById("source_url");
+  if (sourceUrlInput) {
+    sourceUrlInput.value = window.location.href;
+  }
+
+  // Current page name → form_name (document title without site suffix)
+  var formNameInput = document.getElementById("form_name");
+  if (formNameInput) {
+    var pageTitle = (document.title || "").trim();
+    formNameInput.value =
+      pageTitle.split(" - ")[0].trim() || pageTitle || "Contact Us";
+  }
 
   // =====================================
   // Validation Functions
@@ -121,85 +131,11 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("message").addEventListener("blur", validateMessage);
 
   // =====================================
-  // Procedure Search
-  // =====================================
-
-  const input = document.getElementById("procedure");
-  const list = document.getElementById("procedureList");
-  const hidden = document.getElementById("procedure_id");
-
-  let timer = null;
-
-  function loadProcedures(keyword = "") {
-    fetch(
-      API_BASE_URL + "/procedure-categories?q=" + encodeURIComponent(keyword),
-    )
-      .then((res) => res.json())
-      .then((response) => {
-        list.innerHTML = "";
-
-        if (!response.status || !response.data.procedure_categories.length) {
-          list.style.display = "none";
-          return;
-        }
-
-        response.data.procedure_categories.forEach(function (item) {
-          let div = document.createElement("div");
-
-          div.className = "procedure-item";
-          div.innerText = item.name;
-
-          div.onclick = function () {
-            input.value = item.name;
-            hidden.value = item.id;
-
-            list.style.display = "none";
-          };
-
-          list.appendChild(div);
-        });
-
-        if (document.activeElement === input) {
-          list.style.display = "block";
-        }
-      })
-      .catch(function (err) {});
-  }
-
-  // Input Focus
-  input.addEventListener("focus", function () {
-    if (list.children.length > 0) {
-      list.style.display = "block";
-    } else {
-      loadProcedures("");
-    }
-  });
-
-  // Search
-  input.addEventListener("input", function () {
-    hidden.value = "";
-
-    clearTimeout(timer);
-
-    timer = setTimeout(function () {
-      if (input.value.trim() === "") {
-        loadProcedures("");
-      } else {
-        loadProcedures(input.value);
-      }
-    }, 800);
-  });
-
-  // Outside Click
-  document.addEventListener("click", function (e) {
-    if (!e.target.closest(".procedure-wrapper")) {
-      list.style.display = "none";
-    }
-  });
-
-  // =====================================
   // Submit Form
   // =====================================
+
+  const hidden = document.getElementById("procedure_id");
+  const hiddenName = document.getElementById("procedure_name");
 
   document
     .getElementById("enquiryForm")
@@ -211,14 +147,23 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!validateFullName()) valid = false;
       if (!validateMobile()) valid = false;
       if (!validateEmail()) valid = false;
-      // if (!validateMessage()) valid = false;
+      if (!validateCity()) valid = false;
 
-      if (hidden.value === "") {
-        // alert("Please select Procedure");
+      if (!hidden || hidden.value === "") {
+        document.getElementById("errmsgprocedure").innerHTML =
+          "Please select Procedure";
         valid = false;
+      } else {
+        document.getElementById("errmsgprocedure").innerHTML = "";
       }
 
       if (!valid) {
+        const firstError = document.querySelector(
+          "#enquiryForm .error-message:not(:empty)",
+        );
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
         return;
       }
 
@@ -227,23 +172,50 @@ document.addEventListener("DOMContentLoaded", function () {
         method: "POST",
         body: formData,
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            return res.json().catch(function () {
+              throw new Error("HTTP " + res.status);
+            });
+          }
+          return res.json();
+        })
         .then((response) => {
           if (response.response && response.response.status) {
             Swal.fire({
               icon: "success",
               title: "Success",
-              text: response.response.message,
+              text: response.response.message || "Submitted successfully.",
               confirmButtonText: "OK",
-                 confirmButtonColor: "#22c55e",
+              confirmButtonColor: "#22c55e",
             });
 
             document.getElementById("enquiryForm").reset();
+
+            if (hidden) hidden.value = "";
+            if (hiddenName) hiddenName.value = "";
+
+            if (typeof jQuery !== "undefined" && jQuery("#procedure").length) {
+              jQuery("#procedure").val(null).trigger("change");
+            }
           } else {
+            var errorText = "Something went wrong.";
+            if (response.response && response.response.message) {
+              errorText = response.response.message;
+            } else if (response.message) {
+              errorText = response.message;
+            } else if (response.errors) {
+              errorText = Object.keys(response.errors)
+                .map(function (k) {
+                  return response.errors[k];
+                })
+                .join("\n");
+            }
+
             Swal.fire({
               icon: "error",
               title: "Failed",
-              text: response.response.message || "Something went wrong.",
+              text: errorText,
               confirmButtonText: "OK",
             });
           }
@@ -254,7 +226,6 @@ document.addEventListener("DOMContentLoaded", function () {
             title: "Error",
             text: "Unable to submit the form.",
             confirmButtonText: "OK",
-            
           });
         });
     });
