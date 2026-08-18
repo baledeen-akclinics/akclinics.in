@@ -45,9 +45,8 @@ class BookAppointmentController extends Controller
             "source_url"            => $attr('page_url'),
             "description"           => "Preferred Time : " . $this->request->getPost('Preferred_Time'),
 
-            "campaign_id"           => "120212345678901234",
-            // From UTM (utm_campaign → campaign_name); fallback if missing
-            "campaign_name"         => $attr('campaign_name') ?? 'Website',
+            "campaign_id"           => $attr('campaign_id'),
+            "campaign_name"         => $attr('campaign_name'),
 
             "ad_id"                 => null,
             "ad_name"               => null,

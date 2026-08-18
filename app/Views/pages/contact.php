@@ -43,8 +43,8 @@
 
                 <input type="hidden" id="source_url" name="source_url">
                 <input type="hidden" id="source_id" name="source_id" value="website">
-                <input type="hidden" id="campaign_id" name="campaign_id" value="120212345678901234">
-                <input type="hidden" id="campaign_name" name="campaign_name" value="Website">
+                <input type="hidden" id="campaign_id" name="campaign_id">
+                <input type="hidden" id="campaign_name" name="campaign_name">
                 <input type="hidden" id="ad_id" name="ad_id" value="1">
                 <input type="hidden" id="ad_name" name="ad_name" value="1">
                 <input type="hidden" id="form_id" name="form_id" value="website-contact-form">

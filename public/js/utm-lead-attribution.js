@@ -9,6 +9,7 @@
   var COOKIE_NAME = 'lead_attribution';
   var COOKIE_DAYS = 30;
   var ATTRIBUTION_PARAMS = [
+    'campaign_id',
     'utm_source',
     'utm_medium',
     'utm_campaign',
@@ -104,6 +105,7 @@
     }
 
     var attribution = {
+      campaign_id: urlParams.campaign_id || '',
       utm_source: urlParams.utm_source || '',
       utm_medium: urlParams.utm_medium || '',
       utm_campaign: urlParams.utm_campaign || '',
