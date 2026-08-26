@@ -61,6 +61,22 @@
                 <input type="hidden" id="landing_page" name="landing_page">
                 <input type="hidden" id="referrer" name="referrer">
 
+                <input type="hidden" id="first_touch_source" name="first_touch_source">
+                <input type="hidden" id="first_touch_medium" name="first_touch_medium">
+                <input type="hidden" id="first_touch_channel" name="first_touch_channel">
+                <input type="hidden" id="first_touch_campaign" name="first_touch_campaign">
+                <input type="hidden" id="first_touch_referrer" name="first_touch_referrer">
+                <input type="hidden" id="first_touch_landing_page" name="first_touch_landing_page">
+                <input type="hidden" id="first_touch_at" name="first_touch_at">
+
+                <input type="hidden" id="last_touch_source" name="last_touch_source">
+                <input type="hidden" id="last_touch_medium" name="last_touch_medium">
+                <input type="hidden" id="last_touch_channel" name="last_touch_channel">
+                <input type="hidden" id="last_touch_campaign" name="last_touch_campaign">
+                <input type="hidden" id="last_touch_referrer" name="last_touch_referrer">
+                <input type="hidden" id="last_touch_landing_page" name="last_touch_landing_page">
+                <input type="hidden" id="last_touch_at" name="last_touch_at">
+
                 <!-- Full Name -->
                 <div class="form-floating mb-3">
                   <label for="full_name">Full Name <span class="text-danger">*</span></label>

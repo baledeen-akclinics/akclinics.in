@@ -25,6 +25,22 @@
             <input type="hidden" id="fbclid" name="fbclid">
             <input type="hidden" id="landing_page" name="landing_page">
             <input type="hidden" id="referrer" name="referrer">
+
+            <input type="hidden" id="first_touch_source" name="first_touch_source">
+            <input type="hidden" id="first_touch_medium" name="first_touch_medium">
+            <input type="hidden" id="first_touch_channel" name="first_touch_channel">
+            <input type="hidden" id="first_touch_campaign" name="first_touch_campaign">
+            <input type="hidden" id="first_touch_referrer" name="first_touch_referrer">
+            <input type="hidden" id="first_touch_landing_page" name="first_touch_landing_page">
+            <input type="hidden" id="first_touch_at" name="first_touch_at">
+
+            <input type="hidden" id="last_touch_source" name="last_touch_source">
+            <input type="hidden" id="last_touch_medium" name="last_touch_medium">
+            <input type="hidden" id="last_touch_channel" name="last_touch_channel">
+            <input type="hidden" id="last_touch_campaign" name="last_touch_campaign">
+            <input type="hidden" id="last_touch_referrer" name="last_touch_referrer">
+            <input type="hidden" id="last_touch_landing_page" name="last_touch_landing_page">
+            <input type="hidden" id="last_touch_at" name="last_touch_at">
             <!--<div class="error-form display-hide">Failed !! please check required fields….</div>-->
             <?php if (isset($_REQUEST['status']) && $_REQUEST['status'] == 'success') { ?>
                 <div style="color: green;" class="success-form display-hide1">Thank you for submitting your details, Our patient advisor will contact you soon.</div>

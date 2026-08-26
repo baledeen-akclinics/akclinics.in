@@ -1,6 +1,6 @@
 /**
  * Lead Attribution System
- * First-touch UTM / click-ID capture → cookie → form hidden fields
+ * First-touch + last-touch UTM / click-ID capture → cookie → form hidden fields
  */
 (function () {
   'use strict';
@@ -18,8 +18,39 @@
     'gclid',
     'fbclid'
   ];
+  var FIRST_TOUCH_FIELDS = [
+    'first_touch_source',
+    'first_touch_medium',
+    'first_touch_channel',
+    'first_touch_campaign',
+    'first_touch_referrer',
+    'first_touch_landing_page',
+    'first_touch_at'
+  ];
+  var LAST_TOUCH_FIELDS = [
+    'last_touch_source',
+    'last_touch_medium',
+    'last_touch_channel',
+    'last_touch_campaign',
+    'last_touch_referrer',
+    'last_touch_landing_page',
+    'last_touch_at'
+  ];
   // Hidden form fields that receive cookie values on submit
-  var FORM_FIELDS = ATTRIBUTION_PARAMS.concat(['landing_page', 'referrer']);
+  var FORM_FIELDS = ATTRIBUTION_PARAMS.concat(
+    ['landing_page', 'referrer']
+  ).concat(FIRST_TOUCH_FIELDS).concat(LAST_TOUCH_FIELDS);
+
+  var SOCIAL_SOURCES = [
+    'facebook', 'fb', 'instagram', 'ig', 'meta',
+    'twitter', 'x', 'linkedin', 'pinterest', 'tiktok',
+    'youtube', 'snapchat', 'reddit'
+  ];
+  var SEARCH_SOURCES = ['google', 'bing', 'yahoo', 'duckduckgo', 'baidu'];
+  var PAID_MEDIA = [
+    'cpc', 'ppc', 'paid', 'paid-search', 'paid_search',
+    'cpm', 'cpa', 'cpl', 'paid-social', 'paid_social', 'display'
+  ];
 
   // ============================================================
   // Cookie helpers
@@ -65,7 +96,184 @@
   window.getLeadAttributionCookie = getLeadAttributionCookie;
 
   // ============================================================
-  // Capture attribution on page load (first-touch only)
+  // Channel + touch helpers
+  // ============================================================
+
+  function includesAny(value, list) {
+    if (!value) {
+      return false;
+    }
+    for (var i = 0; i < list.length; i++) {
+      if (value === list[i] || value.indexOf(list[i]) !== -1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Derive a marketing channel from source / medium / click IDs.
+   * @param {string} source
+   * @param {string} medium
+   * @param {string} [gclid]
+   * @param {string} [fbclid]
+   * @returns {string}
+   */
+  function deriveChannel(source, medium, gclid, fbclid) {
+    var src = (source || '').toLowerCase();
+    var med = (medium || '').toLowerCase();
+    var isSocial = includesAny(src, SOCIAL_SOURCES) ||
+      med === 'social' || med === 'paid-social' || med === 'paid_social';
+    var isSearch = includesAny(src, SEARCH_SOURCES);
+    var isPaid = includesAny(med, PAID_MEDIA) || !!gclid || !!fbclid;
+
+    if (gclid) {
+      return 'paid_search';
+    }
+    if (fbclid) {
+      return 'paid_social';
+    }
+    if (isSocial && isPaid) {
+      return 'paid_social';
+    }
+    if (isSearch && isPaid) {
+      return 'paid_search';
+    }
+    if (med === 'cpc' || med === 'ppc' || med === 'paid') {
+      return isSocial ? 'paid_social' : 'paid_search';
+    }
+    if (med === 'display' || med === 'banner' || med === 'cpm') {
+      return 'display';
+    }
+    if (med === 'email') {
+      return 'email';
+    }
+    if (med === 'affiliate' || med === 'affiliates') {
+      return 'affiliate';
+    }
+    if (med === 'referral' || med === 'referrer') {
+      return 'referral';
+    }
+    if (isSocial) {
+      return 'organic_social';
+    }
+    if (isSearch || med === 'organic') {
+      return 'organic_search';
+    }
+    if (!src && !med) {
+      return 'direct';
+    }
+    if (src === 'direct' || med === 'none' || med === '(none)') {
+      return 'direct';
+    }
+    return med || src || 'other';
+  }
+
+  /**
+   * Infer source/medium when only a click ID is present.
+   */
+  function resolveSourceMedium(params) {
+    var source = (params && params.utm_source) || '';
+    var medium = (params && params.utm_medium) || '';
+    if (!source && params && params.gclid) {
+      source = 'google';
+    }
+    if (!source && params && params.fbclid) {
+      source = 'facebook';
+    }
+    if (!medium && params && (params.gclid || params.fbclid)) {
+      medium = 'cpc';
+    }
+    return { source: source, medium: medium };
+  }
+
+  /**
+   * Build a first/last-touch snapshot from the current attributed visit.
+   * @param {Object} urlParams
+   * @param {string} timestamp ISO-8601
+   * @returns {Object}
+   */
+  function buildTouchSnapshot(urlParams, timestamp) {
+    var resolved = resolveSourceMedium(urlParams);
+    return {
+      source: resolved.source,
+      medium: resolved.medium,
+      channel: deriveChannel(resolved.source, resolved.medium, urlParams.gclid, urlParams.fbclid),
+      campaign: urlParams.utm_campaign || '',
+      referrer: document.referrer || '',
+      landing_page: window.location.href,
+      at: timestamp
+    };
+  }
+
+  function applyFirstTouch(data, touch) {
+    data.first_touch_source = touch.source;
+    data.first_touch_medium = touch.medium;
+    data.first_touch_channel = touch.channel;
+    data.first_touch_campaign = touch.campaign;
+    data.first_touch_referrer = touch.referrer;
+    data.first_touch_landing_page = touch.landing_page;
+    data.first_touch_at = touch.at;
+  }
+
+  function applyLastTouch(data, touch) {
+    data.last_touch_source = touch.source;
+    data.last_touch_medium = touch.medium;
+    data.last_touch_channel = touch.channel;
+    data.last_touch_campaign = touch.campaign;
+    data.last_touch_referrer = touch.referrer;
+    data.last_touch_landing_page = touch.landing_page;
+    data.last_touch_at = touch.at;
+  }
+
+  function hasFirstTouch(data) {
+    return !!(data && data.first_touch_at);
+  }
+
+  /**
+   * Backfill first/last-touch from a legacy cookie (utm_* only).
+   * Never overwrites first-touch fields that already exist.
+   */
+  function migrateLegacyCookie(existing) {
+    var data = {};
+    var key;
+    for (key in existing) {
+      if (Object.prototype.hasOwnProperty.call(existing, key)) {
+        data[key] = existing[key];
+      }
+    }
+
+    var resolved = resolveSourceMedium(data);
+    var at = data.first_visit_time || new Date().toISOString();
+    var touch = {
+      source: resolved.source,
+      medium: resolved.medium,
+      channel: deriveChannel(resolved.source, resolved.medium, data.gclid, data.fbclid),
+      campaign: data.utm_campaign || '',
+      referrer: data.referrer || '',
+      landing_page: data.landing_page || '',
+      at: at
+    };
+
+    if (!hasFirstTouch(data)) {
+      applyFirstTouch(data, touch);
+    }
+    if (!data.last_touch_at) {
+      applyLastTouch(data, {
+        source: data.first_touch_source,
+        medium: data.first_touch_medium,
+        channel: data.first_touch_channel,
+        campaign: data.first_touch_campaign,
+        referrer: data.first_touch_referrer,
+        landing_page: data.first_touch_landing_page,
+        at: data.first_touch_at
+      });
+    }
+    return data;
+  }
+
+  // ============================================================
+  // Capture attribution on page load
   // ============================================================
 
   /**
@@ -90,35 +298,48 @@
   }
 
   /**
-   * Persist first-touch attribution when UTM/click-ID params are present
-   * and no cookie exists yet. Never overwrites an existing cookie.
+   * Persist first-touch on the first attributed visit (never overwrite).
+   * Update last-touch when the user arrives with new UTM / click-ID params.
    */
-  function captureFirstTouchAttribution() {
-    // Preserve original first-touch values — do not overwrite
-    if (getLeadAttributionCookie()) {
-      return;
-    }
-
+  function captureAttribution() {
+    var existing = getLeadAttributionCookie();
     var urlParams = getUrlAttributionParams();
+
+    // No URL attribution: keep cookie as-is; migrate legacy cookies once
     if (!urlParams) {
+      if (existing && !hasFirstTouch(existing)) {
+        setLeadAttributionCookie(migrateLegacyCookie(existing));
+      }
       return;
     }
 
-    var attribution = {
-      campaign_id: urlParams.campaign_id || '',
-      utm_source: urlParams.utm_source || '',
-      utm_medium: urlParams.utm_medium || '',
-      utm_campaign: urlParams.utm_campaign || '',
-      utm_content: urlParams.utm_content || '',
-      utm_term: urlParams.utm_term || '',
-      gclid: urlParams.gclid || '',
-      fbclid: urlParams.fbclid || '',
-      landing_page: window.location.href,
-      referrer: document.referrer || '',
-      first_visit_time: new Date().toISOString()
-    };
+    var now = new Date().toISOString();
+    var touch = buildTouchSnapshot(urlParams, now);
 
-    setLeadAttributionCookie(attribution);
+    if (!existing) {
+      var attribution = {
+        campaign_id: urlParams.campaign_id || '',
+        utm_source: urlParams.utm_source || '',
+        utm_medium: urlParams.utm_medium || '',
+        utm_campaign: urlParams.utm_campaign || '',
+        utm_content: urlParams.utm_content || '',
+        utm_term: urlParams.utm_term || '',
+        gclid: urlParams.gclid || '',
+        fbclid: urlParams.fbclid || '',
+        landing_page: touch.landing_page,
+        referrer: touch.referrer,
+        first_visit_time: now
+      };
+      applyFirstTouch(attribution, touch);
+      applyLastTouch(attribution, touch);
+      setLeadAttributionCookie(attribution);
+      return;
+    }
+
+    // Cookie exists — never overwrite first-touch or original UTM fields
+    var updated = migrateLegacyCookie(existing);
+    applyLastTouch(updated, touch);
+    setLeadAttributionCookie(updated);
   }
 
   // ============================================================
@@ -177,6 +398,6 @@
   // ============================================================
   // Initialize on every page load
   // ============================================================
-  captureFirstTouchAttribution();
+  captureAttribution();
   bindFormAttribution();
 })();
