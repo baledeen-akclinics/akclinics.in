@@ -46,8 +46,8 @@ class ContactController extends Controller
             "source_id"             => "website-contact-form",
             "source_url" => $attr('source_url'),
             "description"           => $this->request->getPost('Message'),
-            "campaign_id"           => "120212345678901234",
-            "campaign_name"         => "Website Organic",
+            "campaign_id"           => $attr('campaign_id'),
+            "campaign_name"         => $attr('campaign_name'),
             "ad_id"                 => null,
             "ad_name"               => null,
             "form_id"               => "website-contact-form",
@@ -66,6 +66,22 @@ class ContactController extends Controller
             "fbclid"                => $attr('fbclid'),
             "landing_page"          => $attr('landing_page'),
             "referrer"              => $attr('referrer'),
+
+            "first_touch_source"        => $attr('first_touch_source'),
+            "first_touch_medium"        => $attr('first_touch_medium'),
+            "first_touch_channel"       => $attr('first_touch_channel'),
+            "first_touch_campaign"      => $attr('first_touch_campaign'),
+            "first_touch_referrer"      => $attr('first_touch_referrer'),
+            "first_touch_landing_page"  => $attr('first_touch_landing_page'),
+            "first_touch_at"            => $attr('first_touch_at'),
+
+            "last_touch_source"         => $attr('last_touch_source'),
+            "last_touch_medium"         => $attr('last_touch_medium'),
+            "last_touch_channel"        => $attr('last_touch_channel'),
+            "last_touch_campaign"       => $attr('last_touch_campaign'),
+            "last_touch_referrer"       => $attr('last_touch_referrer'),
+            "last_touch_landing_page"   => $attr('last_touch_landing_page'),
+            "last_touch_at"             => $attr('last_touch_at'),
         ];
 
         try {
