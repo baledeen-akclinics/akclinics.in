@@ -111,6 +111,123 @@
     return false;
   }
 
+  function normalizeHost(host) {
+    return (host || '').toLowerCase().replace(/^www\./, '');
+  }
+
+  function getUrlHost(url) {
+    if (!url) {
+      return '';
+    }
+    try {
+      return normalizeHost(new URL(url).hostname);
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function hostIs(host, domain) {
+    return host === domain || host.slice(-(domain.length + 1)) === '.' + domain;
+  }
+
+  /**
+   * Own-site referrers must not become a marketing source
+   * (that produced "akclinics.com • referral" in the CRM).
+   */
+  function isInternalHost(host) {
+    if (!host) {
+      return false;
+    }
+    var current = normalizeHost(window.location.hostname);
+    if (host === current) {
+      return true;
+    }
+    return host === 'akclinics.in' ||
+      host === 'akclinics.com' ||
+      host === 'akclinics.org' ||
+      hostIs(host, 'akclinics.in') ||
+      hostIs(host, 'akclinics.com') ||
+      hostIs(host, 'akclinics.org');
+  }
+
+  function isGoogleSearchHost(host) {
+    return /^google\.(com|[a-z]{2}|co\.[a-z]{2}|com\.[a-z]{2})$/.test(host) ||
+      host === 'search.google.com';
+  }
+
+  function isGoogleAdsHost(host) {
+    return hostIs(host, 'googleadservices.com') ||
+      hostIs(host, 'googlesyndication.com') ||
+      host.indexOf('doubleclick.net') !== -1;
+  }
+
+  /**
+   * Infer source/medium from document.referrer when the URL has no UTM/click-IDs.
+   * Returns direct for empty or internal referrers — never Google unless the
+   * referrer host is actually Google.
+   * @param {string} referrer
+   * @returns {{source: string, medium: string}}
+   */
+  function inferFromReferrer(referrer) {
+    var host = getUrlHost(referrer);
+    if (!host || isInternalHost(host)) {
+      return { source: 'direct', medium: 'none' };
+    }
+
+    var path = '';
+    try {
+      path = new URL(referrer).pathname.toLowerCase();
+    } catch (e) {
+      path = '';
+    }
+
+    if (isGoogleAdsHost(host) || (isGoogleSearchHost(host) && path.indexOf('/aclk') === 0)) {
+      return { source: host, medium: 'cpc' };
+    }
+    if (isGoogleSearchHost(host)) {
+      return { source: host, medium: 'organic' };
+    }
+    if (hostIs(host, 'bing.com')) {
+      return { source: host, medium: 'organic' };
+    }
+    if (hostIs(host, 'yahoo.com')) {
+      return { source: host, medium: 'organic' };
+    }
+    if (hostIs(host, 'duckduckgo.com')) {
+      return { source: host, medium: 'organic' };
+    }
+    if (hostIs(host, 'baidu.com')) {
+      return { source: host, medium: 'organic' };
+    }
+
+    if (hostIs(host, 'facebook.com') || hostIs(host, 'fb.com') || host === 'fb.me') {
+      return { source: host, medium: 'social' };
+    }
+    if (hostIs(host, 'instagram.com')) {
+      return { source: host, medium: 'social' };
+    }
+    if (hostIs(host, 'linkedin.com') || host === 'lnkd.in') {
+      return { source: host, medium: 'social' };
+    }
+    if (hostIs(host, 'twitter.com') || hostIs(host, 'x.com') || host === 't.co') {
+      return { source: host, medium: 'social' };
+    }
+    if (hostIs(host, 'youtube.com') || host === 'youtu.be') {
+      return { source: host, medium: 'social' };
+    }
+    if (hostIs(host, 'tiktok.com')) {
+      return { source: host, medium: 'social' };
+    }
+    if (hostIs(host, 'pinterest.com')) {
+      return { source: host, medium: 'social' };
+    }
+    if (hostIs(host, 'reddit.com')) {
+      return { source: host, medium: 'social' };
+    }
+
+    return { source: host, medium: 'referral' };
+  }
+
   /**
    * Derive a marketing channel from source / medium / click IDs.
    * @param {string} source
@@ -170,9 +287,10 @@
   }
 
   /**
-   * Infer source/medium when only a click ID is present.
+   * Infer source/medium from click IDs, then from referrer if still unknown.
+   * UTM params and gclid/fbclid always win over the referrer.
    */
-  function resolveSourceMedium(params) {
+  function resolveSourceMedium(params, referrer) {
     var source = (params && params.utm_source) || '';
     var medium = (params && params.utm_medium) || '';
     if (!source && params && params.gclid) {
@@ -184,6 +302,11 @@
     if (!medium && params && (params.gclid || params.fbclid)) {
       medium = 'cpc';
     }
+    if (!source && !medium) {
+      var inferred = inferFromReferrer(referrer || '');
+      source = inferred.source;
+      medium = inferred.medium;
+    }
     return { source: source, medium: medium };
   }
 
@@ -194,12 +317,13 @@
    * @returns {Object}
    */
   function buildTouchSnapshot(urlParams, timestamp) {
-    var resolved = resolveSourceMedium(urlParams);
+    var params = urlParams || {};
+    var resolved = resolveSourceMedium(params, document.referrer);
     return {
       source: resolved.source,
       medium: resolved.medium,
-      channel: deriveChannel(resolved.source, resolved.medium, urlParams.gclid, urlParams.fbclid),
-      campaign: urlParams.utm_campaign || '',
+      channel: deriveChannel(resolved.source, resolved.medium, params.gclid, params.fbclid),
+      campaign: params.utm_campaign || '',
       referrer: document.referrer || '',
       landing_page: window.location.href,
       at: timestamp
@@ -243,7 +367,7 @@
       }
     }
 
-    var resolved = resolveSourceMedium(data);
+    var resolved = resolveSourceMedium(data, data.referrer || '');
     var at = data.first_visit_time || new Date().toISOString();
     var touch = {
       source: resolved.source,
@@ -298,16 +422,37 @@
   }
 
   /**
-   * Persist first-touch on the first attributed visit (never overwrite).
-   * Update last-touch when the user arrives with new UTM / click-ID params.
+   * Persist first-touch on the first visit (UTM, click-ID, or referrer).
+   * Never overwrite first-touch. Update last-touch only when new UTM / click-IDs arrive.
    */
   function captureAttribution() {
     var existing = getLeadAttributionCookie();
     var urlParams = getUrlAttributionParams();
 
-    // No URL attribution: keep cookie as-is; migrate legacy cookies once
+    // No UTM / click-ID in the URL (typical for Google organic).
     if (!urlParams) {
-      if (existing && !hasFirstTouch(existing)) {
+      if (!existing) {
+        var nowFromReferrer = new Date().toISOString();
+        var referrerTouch = buildTouchSnapshot({}, nowFromReferrer);
+        var referrerAttribution = {
+          campaign_id: '',
+          utm_source: '',
+          utm_medium: '',
+          utm_campaign: '',
+          utm_content: '',
+          utm_term: '',
+          gclid: '',
+          fbclid: '',
+          landing_page: referrerTouch.landing_page,
+          referrer: referrerTouch.referrer,
+          first_visit_time: nowFromReferrer
+        };
+        applyFirstTouch(referrerAttribution, referrerTouch);
+        applyLastTouch(referrerAttribution, referrerTouch);
+        setLeadAttributionCookie(referrerAttribution);
+        return;
+      }
+      if (!hasFirstTouch(existing)) {
         setLeadAttributionCookie(migrateLegacyCookie(existing));
       }
       return;
