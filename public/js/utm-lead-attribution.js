@@ -52,6 +52,17 @@
     'cpm', 'cpa', 'cpl', 'paid-social', 'paid_social', 'display'
   ];
 
+  /**
+   * Server-rendered timestamp from PHP (app timezone).
+   * Attribution must not use the browser clock.
+   * @returns {string}
+   */
+  function getAttributionTimestamp() {
+    return (typeof window !== 'undefined' && window.__LEAD_ATTRIBUTION_SERVER_TIME__)
+      ? String(window.__LEAD_ATTRIBUTION_SERVER_TIME__)
+      : '';
+  }
+
   // ============================================================
   // Cookie helpers
   // ============================================================
@@ -441,7 +452,7 @@
     }
 
     var resolved = resolveSourceMedium(data, data.referrer || '');
-    var at = data.first_visit_time || new Date().toISOString();
+    var at = data.first_visit_time || getAttributionTimestamp();
     var touch = {
       source: resolved.source,
       medium: resolved.medium,
@@ -506,7 +517,7 @@
 
     // No UTM / click-ID in the URL (typical for Google organic).
     if (!urlParams) {
-      var nowFromReferrer = new Date().toISOString();
+      var nowFromReferrer = getAttributionTimestamp();
       var referrerTouch = buildTouchSnapshot({}, nowFromReferrer);
       var strongReferrer = isMarketingTouch(referrerTouch);
 
@@ -561,7 +572,7 @@
       return;
     }
 
-    var now = new Date().toISOString();
+    var now = getAttributionTimestamp();
     var touch = buildTouchSnapshot(urlParams, now);
 
     if (!existing) {

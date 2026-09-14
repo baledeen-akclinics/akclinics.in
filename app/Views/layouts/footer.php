@@ -369,4 +369,14 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
 <script src="<?= base_url('js/procedure-search.js') ?>?v=<?= @filemtime(FCPATH . 'js/procedure-search.js') ?: time() ?>" defer></script>
 <script src="<?= base_url('js/book-appointment.js') ?>?v=<?= @filemtime(FCPATH . 'js/book-appointment.js') ?: time() ?>" defer></script>
+<?php
+	// Server time for lead attribution (Asia/Kolkata) — do not use browser clock in JS
+	$leadAttributionServerTime = (new \DateTimeImmutable(
+		'now',
+		new \DateTimeZone('Asia/Kolkata')
+	))->format(\DateTimeInterface::RFC3339_EXTENDED);
+?>
+<script>
+window.__LEAD_ATTRIBUTION_SERVER_TIME__ = <?= json_encode($leadAttributionServerTime, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
+</script>
 <script src="<?= base_url('js/utm-lead-attribution.js') ?>?v=<?= @filemtime(FCPATH . 'js/utm-lead-attribution.js') ?: time() ?>" defer></script>
