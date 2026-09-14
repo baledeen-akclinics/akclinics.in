@@ -355,6 +355,79 @@
   }
 
   /**
+   * Direct / none is a weak placeholder — safe to upgrade when a real
+   * marketing signal (Google organic, UTM, gclid, etc.) arrives later.
+   */
+  function isWeakFirstTouch(data) {
+    if (!data) {
+      return true;
+    }
+    var source = (data.first_touch_source || data.source || '').toLowerCase();
+    var medium = (data.first_touch_medium || data.medium || '').toLowerCase();
+    var channel = (data.first_touch_channel || data.channel || '').toLowerCase();
+    return !source ||
+      source === 'direct' ||
+      medium === 'none' ||
+      medium === '(none)' ||
+      channel === 'direct';
+  }
+
+  function isMarketingTouch(touch) {
+    return !!(touch && touch.source && !isWeakFirstTouch(touch));
+  }
+
+  /**
+   * www↔apex or trailing-slash 301 hops leave an internal document.referrer.
+   * That must not be locked as first-touch "direct" (it often replaced Google).
+   */
+  function isSameSiteRedirectHop(referrer) {
+    var host = getUrlHost(referrer);
+    if (!host || !isInternalHost(host)) {
+      return false;
+    }
+
+    try {
+      var refPath = new URL(referrer).pathname.replace(/\/+$/, '') || '/';
+      var curPath = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
+      if (refPath === curPath) {
+        return true;
+      }
+    } catch (e) {
+      // fall through to Performance API check
+    }
+
+    try {
+      var entries = window.performance &&
+        window.performance.getEntriesByType &&
+        window.performance.getEntriesByType('navigation');
+      if (entries && entries[0] && entries[0].redirectCount > 0) {
+        return true;
+      }
+    } catch (e2) {
+      // ignore
+    }
+
+    return false;
+  }
+
+  /**
+   * Fill empty top-level utm_source / utm_medium from an inferred touch
+   * so CRM "UTM / source" views show Google organic even without URL params.
+   * Never overwrites explicit UTM values already present.
+   */
+  function fillUtmFromTouch(data, touch) {
+    if (!data || !touch) {
+      return;
+    }
+    if (!data.utm_source && touch.source && touch.source !== 'direct') {
+      data.utm_source = touch.source;
+    }
+    if (!data.utm_medium && touch.medium && touch.medium !== 'none' && touch.medium !== '(none)') {
+      data.utm_medium = touch.medium;
+    }
+  }
+
+  /**
    * Backfill first/last-touch from a legacy cookie (utm_* only).
    * Never overwrites first-touch fields that already exist.
    */
@@ -423,7 +496,9 @@
 
   /**
    * Persist first-touch on the first visit (UTM, click-ID, or referrer).
-   * Never overwrite first-touch. Update last-touch only when new UTM / click-IDs arrive.
+   * Never overwrite a real first-touch with later direct/internal visits.
+   * Weak "direct" placeholders may upgrade when a marketing signal arrives.
+   * Update last-touch only when new UTM / click-IDs arrive.
    */
   function captureAttribution() {
     var existing = getLeadAttributionCookie();
@@ -431,9 +506,17 @@
 
     // No UTM / click-ID in the URL (typical for Google organic).
     if (!urlParams) {
+      var nowFromReferrer = new Date().toISOString();
+      var referrerTouch = buildTouchSnapshot({}, nowFromReferrer);
+      var strongReferrer = isMarketingTouch(referrerTouch);
+
       if (!existing) {
-        var nowFromReferrer = new Date().toISOString();
-        var referrerTouch = buildTouchSnapshot({}, nowFromReferrer);
+        // Same-site redirect hop (www→apex / trailing-slash) looks like an
+        // internal referrer — do not lock that as first-touch "direct".
+        if (!strongReferrer && isSameSiteRedirectHop(document.referrer || '')) {
+          return;
+        }
+
         var referrerAttribution = {
           campaign_id: '',
           utm_source: '',
@@ -447,13 +530,33 @@
           referrer: referrerTouch.referrer,
           first_visit_time: nowFromReferrer
         };
+        fillUtmFromTouch(referrerAttribution, referrerTouch);
         applyFirstTouch(referrerAttribution, referrerTouch);
         applyLastTouch(referrerAttribution, referrerTouch);
         setLeadAttributionCookie(referrerAttribution);
         return;
       }
+
+      var updatedFromReferrer = hasFirstTouch(existing)
+        ? existing
+        : migrateLegacyCookie(existing);
+
+      // Upgrade weak direct → Google organic (or other external referrer)
+      if (strongReferrer && isWeakFirstTouch(updatedFromReferrer)) {
+        applyFirstTouch(updatedFromReferrer, referrerTouch);
+        fillUtmFromTouch(updatedFromReferrer, referrerTouch);
+        if (!updatedFromReferrer.referrer) {
+          updatedFromReferrer.referrer = referrerTouch.referrer;
+        }
+        if (!updatedFromReferrer.landing_page) {
+          updatedFromReferrer.landing_page = referrerTouch.landing_page;
+        }
+        setLeadAttributionCookie(updatedFromReferrer);
+        return;
+      }
+
       if (!hasFirstTouch(existing)) {
-        setLeadAttributionCookie(migrateLegacyCookie(existing));
+        setLeadAttributionCookie(updatedFromReferrer);
       }
       return;
     }
@@ -475,14 +578,26 @@
         referrer: touch.referrer,
         first_visit_time: now
       };
+      // gclid/fbclid-only landings still get utm_source/medium for CRM
+      fillUtmFromTouch(attribution, touch);
       applyFirstTouch(attribution, touch);
       applyLastTouch(attribution, touch);
       setLeadAttributionCookie(attribution);
       return;
     }
 
-    // Cookie exists — never overwrite first-touch or original UTM fields
+    // Cookie exists — preserve real first-touch; upgrade weak direct only
     var updated = migrateLegacyCookie(existing);
+    if (isWeakFirstTouch(updated)) {
+      applyFirstTouch(updated, touch);
+      fillUtmFromTouch(updated, touch);
+    }
+    if (urlParams.gclid && !updated.gclid) {
+      updated.gclid = urlParams.gclid;
+    }
+    if (urlParams.fbclid && !updated.fbclid) {
+      updated.fbclid = urlParams.fbclid;
+    }
     applyLastTouch(updated, touch);
     setLeadAttributionCookie(updated);
   }
@@ -501,6 +616,13 @@
     if (!data || !form) {
       return;
     }
+
+    // Ensure form UTM fields reflect first-touch when URL never had utm_*
+    // (Google organic) so CRM source views are not empty.
+    fillUtmFromTouch(data, {
+      source: data.first_touch_source || data.utm_source || '',
+      medium: data.first_touch_medium || data.utm_medium || ''
+    });
 
     for (var i = 0; i < FORM_FIELDS.length; i++) {
       var fieldName = FORM_FIELDS[i];
