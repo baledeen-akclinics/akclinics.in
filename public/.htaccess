@@ -16,10 +16,13 @@ Options -Indexes
 	# http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
 	# RewriteBase /
 
-	# Redirect Trailing Slashes...
-	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteCond %{REQUEST_URI} (.+)/$
-	RewriteRule ^ %1 [L,R=301]
+	# Do NOT externally 301-strip trailing slashes.
+	# A same-origin trailing-slash redirect replaces document.referrer with an
+	# internal URL, which made Google organic first-touch look like "direct".
+	# Canonicals already use trailing slashes; serve both forms without redirect.
+	# RewriteCond %{REQUEST_FILENAME} !-d
+	# RewriteCond %{REQUEST_URI} (.+)/$
+	# RewriteRule ^ %1 [L,R=301]
 
 	# Rewrite "www.example.com -> example.com"
 	RewriteCond %{HTTPS} !=on
