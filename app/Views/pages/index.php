@@ -469,7 +469,7 @@
     box-shadow: 0 1px 12px #000;
     z-index: 1050;
     display: block;"><a data-action="open" data-phone="919779162190" data-message="Hi."
-          href="https://wa.me/919779162190" target="_blank" style="color:#fff; text-decoration:none;"><i
+          href="https://wa.akclinics.com/AKC1156" target="_blank" style="color:#fff; text-decoration:none;"><i
             class="fa fa-whatsapp" style="font-size:40px;padding: 9px 11px;"></i></a></div>
     </div>
 <?= $this->endSection() ?>
@@ -486,7 +486,7 @@
               class="fab fa fa-phone mb-0 fa-1x" style="color: #eb2866; font-size: 17px;"></i><br>
             Call Us</a> </li>
         <li class="list-inline-item text-center ml-auto mr-4"> <a data-action="open" data-phone="919779162190"
-            data-message="Hi." href="https://wa.me/919779162190" target="_blank" class=""><i class="fa fa-whatsapp mb-0"
+            data-message="Hi." href="https://wa.akclinics.com/AKC1156" target="_blank" class=""><i class="fa fa-whatsapp mb-0"
               style="font-size:19px; color:green;"></i> <br>
             Whatsapp</a> </li>
         <li class="list-inline-item text-center ml-auto"> <a href="/book-appointment/" class="ico-facebook"><i

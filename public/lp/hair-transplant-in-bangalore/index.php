@@ -74,7 +74,7 @@ $page_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : 
             </div>
             <div class="social-container">
                 <a class="exclude-link"
-                    href="https://web.whatsapp.com/send?phone=917087001629&amp;text=Hair Transplant Bangalore:"
+                    href="https://wa.akclinics.com/AKC1156"
                     target="_parent"><i class="fab fa-whatsapp"></i></a>
                 <a href="tel:+917087001629" class="exclude-link"><i class="fas fa-phone"></i></a>
             </div>
@@ -557,7 +557,7 @@ $page_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : 
         <div class="container">
             <div class="footerflex">
                 <div class="sticky-innerfooter exclude-link">
-                    <a href="https://web.whatsapp.com/send?phone=917087001629&amp;text=Hair Transplant Bangalore:"
+                    <a href="https://wa.akclinics.com/AKC1156"
                         class="exclude-link"><i class="fa fa-whatsapp" aria-hidden="true"></i> Book Appointment</a>
                 </div>
 

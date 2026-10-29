@@ -236,7 +236,7 @@
             style="color: #ff9000; font-size: 17px;"></i><br>Call Us</a>
       </li>
       <li class="list-inline-item text-center ml-auto">
-        <a data-action="open" data-phone="919779162190" data-message="Hi." href="https://wa.me/919779162190"
+        <a data-action="open" data-phone="919779162190" data-message="Hi." href="https://wa.akclinics.com/AKC1156"
           target="_blank" class=""><i class="fa fa-whatsapp mb-0" style="font-size:19px; color:green;"></i>
           <br>Whatsapp</a>
       </li>
