@@ -129,6 +129,9 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("email").addEventListener("blur", validateEmail);
   document.getElementById("city").addEventListener("blur", validateCity);
   document.getElementById("message").addEventListener("blur", validateMessage);
+  document.getElementById("contact_consent").addEventListener("change", function () {
+    if (this.checked) document.getElementById("errmsgconsent").innerHTML = "";
+  });
 
   // =====================================
   // Submit Form
@@ -149,6 +152,15 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!validateEmail()) valid = false;
       if (!validateCity()) valid = false;
 
+      const consent = document.getElementById("contact_consent");
+      if (!consent.checked) {
+        document.getElementById("errmsgconsent").innerHTML =
+          "Please accept consent to continue";
+        valid = false;
+      } else {
+        document.getElementById("errmsgconsent").innerHTML = "";
+      }
+
       if (!hidden || hidden.value === "") {
         document.getElementById("errmsgprocedure").innerHTML =
           "Please select Procedure";
@@ -168,6 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const formData = new FormData(this);
+      formData.set("contact_consent", consent.checked ? "true" : "false");
       fetch(CONTACT_SUBMIT_URL, {
         method: "POST",
         body: formData,

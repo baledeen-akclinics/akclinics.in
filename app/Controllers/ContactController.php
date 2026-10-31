@@ -52,6 +52,7 @@ class ContactController extends Controller
             "ad_name"               => null,
             "form_id"               => "website-contact-form",
             "form_name"             => $attr('form_name') ?? 'Contact Us',
+            "contact_consent"       => filter_var($this->request->getPost('contact_consent') ?? false, FILTER_VALIDATE_BOOLEAN),
 
             // Dynamic procedure id
             "procedure_category_id" => (int) $this->request->getPost('procedure_id'),
