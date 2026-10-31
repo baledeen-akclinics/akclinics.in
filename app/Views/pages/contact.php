@@ -162,6 +162,15 @@
                   <span id="errmsgmessage" class="error-message"></span>
                 </div>
 
+                <!-- Consent -->
+                <div class="mb-3">
+                  <label for="contact_consent" style="font-weight:normal;cursor:pointer;">
+                    <input type="checkbox" id="contact_consent" name="contact_consent" value="1" style="margin-right:6px;">
+                    I consent to being contacted as per the <a href="/privacy-policy/" target="_blank">Privacy Policy</a>.
+                  </label>
+                  <span id="errmsgconsent" class="error-message"></span>
+                </div>
+
                 <!-- Submit -->
                 <div class="text-center">
                   <button type="submit"
